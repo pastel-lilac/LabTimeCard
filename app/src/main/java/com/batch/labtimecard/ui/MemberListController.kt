@@ -20,20 +20,5 @@ class MemberListController(private val callback: ClickListener) : TypedEpoxyCont
                 itemClickListener(View.OnClickListener { callback.itemClickListenter(member)})
             }
         }
-//        data.forEach { member ->
-//            ItemMemberBindingModel_()
-//                .id(member.name)
-//                .member(member)
-//                .itemClickListener(View.OnClickListener { callback.itemClickListenter(member) })
-//                .addTo(this)
-//        }
-//        data.forEach { member ->
-//            itemMember {
-//                .id(member.name)
-//                .member(member)
-//                itemClickListener(View.OnClickListener { callback.itemClickListenter(member) })
-//            }
-//        }
     }
-
 }

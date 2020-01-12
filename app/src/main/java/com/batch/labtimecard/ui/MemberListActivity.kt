@@ -1,19 +1,15 @@
 package com.batch.labtimecard.ui
 
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
-import android.widget.GridLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.batch.labtimecard.R
 import com.batch.labtimecard.model.Member
-import com.batch.labtimecard.model.MemberData
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_member_list.*
-import kotlinx.android.synthetic.main.item_member.*
 
 
 class MemberListActivity : AppCompatActivity(), MemberListController.ClickListener {
@@ -22,10 +18,8 @@ class MemberListActivity : AppCompatActivity(), MemberListController.ClickListen
 
 
     private lateinit var database: FirebaseDatabase
-//    private lateinit var viewModel: MemberListViewModel
     private val controller by lazy { MemberListController(this) }
     val memberList: MutableList<Member> = mutableListOf()
-//    val memberDataList: MutableList<MemberData> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +36,6 @@ class MemberListActivity : AppCompatActivity(), MemberListController.ClickListen
             }
             layoutManager = manager
         }
-
         button_person_add.setOnClickListener {
             openEditPersonScreen()
         }
@@ -79,8 +72,6 @@ class MemberListActivity : AppCompatActivity(), MemberListController.ClickListen
     }
 
     override fun itemClickListenter(item: Member) {
-        item_member_layout.setBackgroundColor(Color.BLUE)
-        Toast.makeText(applicationContext, "おされた", Toast.LENGTH_SHORT).show()
-        Log.d(TAG, item.name.toString())
+        Toast.makeText(applicationContext, item.name, Toast.LENGTH_SHORT).show()
     }
 }
