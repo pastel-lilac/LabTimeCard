@@ -13,6 +13,10 @@ class MainActivity : AppCompatActivity() {
 
         button_person_add.setOnClickListener {
             openEditPersonScreen()
+            val transaction = supportFragmentManager.beginTransaction()
+            transaction.add(R.id.fragment_container, EditUserFragment())
+            transaction.addToBackStack(null)
+            transaction.commit()
         }
     }
 
