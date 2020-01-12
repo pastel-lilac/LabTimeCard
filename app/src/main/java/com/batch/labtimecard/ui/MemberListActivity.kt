@@ -84,21 +84,25 @@ class MemberListActivity : AppCompatActivity(), MemberListController.ClickListen
         val timeMap = kotlin.collections.HashMap<String, String>()
         timeMap.set("time", time)
         Toast.makeText(applicationContext, pref.getBoolean("${item.name}isExisting", false).toString(), Toast.LENGTH_SHORT).show()
-        if (pref.getBoolean("${item.name}isExisting", false)) {
+        if (pref.getBoolean("${item.name}isExisting", false)) { // 選択されたメンバーがログイン中のとき
+            // databaseに保存する子のキー名をlogoutにする
             val ref  = database.getReference("logs").child(item.name.toString()).child(today).child("logout")
             Toast.makeText(applicationContext, "Logout! ${item.name}+${time}", Toast.LENGTH_SHORT).show()
             pref.edit().apply {
                 putBoolean("${item.name}isExisting", false)
                 commit()
             }
+            // ログアウトした時間をdatabaseに保存
             ref.setValue(timeMap)
-        } else {
+        } else { // 選択されたメンバーがログイン中じゃないとき
+            // databaseに保存する子のキー名をloginにする
             val ref  = database.getReference("logs").child(item.name.toString()).child(today).child("login")
             Toast.makeText(applicationContext, "Login! ${item.name}+${time}", Toast.LENGTH_SHORT).show()
             pref.edit().apply {
                 putBoolean("${item.name}isExisting", true)
                 commit()
             }
+            // ログインした時間をdatabaseに保存
             ref.setValue(timeMap)
 
         }
