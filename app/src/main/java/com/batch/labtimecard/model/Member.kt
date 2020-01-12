@@ -1,5 +1,7 @@
 package com.batch.labtimecard.model
 
+import java.nio.channels.spi.AbstractSelectionKey
+
 //data class Member (
 //    // ここで設定した変数名でDatabaseに保存される
 //    val name: String,

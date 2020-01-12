@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.batch.labtimecard.R
 import com.batch.labtimecard.model.Member
+import com.batch.labtimecard.model.MemberData
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.fragment_edit_user.*
 
@@ -48,6 +49,8 @@ class EditUserFragment : Fragment() {
         }
         // members配下にmemberデータの挿入
         val ref = database.getReference("members").push()
+        val key = ref.key
+//        val member = MemberData(key = key, member = Member(name = name, affiliationLabName = affiliationLabName.toString()))
         val member = Member(name = name, affiliationLabName = affiliationLabName.toString())
         ref.setValue(member)
 
