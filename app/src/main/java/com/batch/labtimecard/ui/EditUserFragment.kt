@@ -50,7 +50,6 @@ class EditUserFragment : Fragment() {
         // members配下にmemberデータの挿入
         val ref = database.getReference("members").push()
         val key = ref.key
-//        val member = MemberData(key = key, member = Member(name = name, affiliationLabName = affiliationLabName.toString()))
         val member = Member(name = name, affiliationLabName = affiliationLabName.toString())
         ref.setValue(member)
 
