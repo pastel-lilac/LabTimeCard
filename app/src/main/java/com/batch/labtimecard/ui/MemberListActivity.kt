@@ -1,5 +1,6 @@
 package com.batch.labtimecard.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -74,15 +75,32 @@ class MemberListActivity : AppCompatActivity(), MemberListController.ClickListen
     }
 
     override fun itemClickListenter(item: Member) {
+        val pref = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE)
         val date = Date(System.currentTimeMillis())
         val dateFormat = SimpleDateFormat("yyyy-MM-dd")
         val today = dateFormat.format(date)
-        val ref  = database.getReference("logs").child(item.name.toString()).child(today)
         val insertDateFormat = SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
-        val loginTime = insertDateFormat.format(date)
+        val time = insertDateFormat.format(date)
         val timeMap = kotlin.collections.HashMap<String, String>()
-        timeMap.set("loginTime", loginTime)
-        ref.setValue(timeMap)
-        Toast.makeText(applicationContext, "${item.name}+${loginTime}", Toast.LENGTH_SHORT).show()
+        timeMap.set("time", time)
+        Toast.makeText(applicationContext, pref.getBoolean("${item.name}isExisting", false).toString(), Toast.LENGTH_SHORT).show()
+        if (pref.getBoolean("${item.name}isExisting", false)) {
+            val ref  = database.getReference("logs").child(item.name.toString()).child(today).child("logout")
+            Toast.makeText(applicationContext, "Logout! ${item.name}+${time}", Toast.LENGTH_SHORT).show()
+            pref.edit().apply {
+                putBoolean("${item.name}isExisting", false)
+                commit()
+            }
+            ref.setValue(timeMap)
+        } else {
+            val ref  = database.getReference("logs").child(item.name.toString()).child(today).child("login")
+            Toast.makeText(applicationContext, "Login! ${item.name}+${time}", Toast.LENGTH_SHORT).show()
+            pref.edit().apply {
+                putBoolean("${item.name}isExisting", true)
+                commit()
+            }
+            ref.setValue(timeMap)
+
+        }
     }
 }
