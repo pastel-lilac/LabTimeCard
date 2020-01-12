@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1016381175178",
+    "firebase_url": "https://labtimecard.firebaseio.com",
+    "project_id": "labtimecard",
+    "storage_bucket": "labtimecard.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1016381175178:android:5efce223d0bda2de754473",
+        "android_client_info": {
+          "package_name": "com.batch.labtimecard"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1016381175178-qehde6n2rvos69pfcohl575fu3sv334h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.batch.labtimecard",
+            "certificate_hash": "85cc7300c0877d26bc9cce18b02a280a57607d77"
+          }
+        },
+        {
+          "client_id": "1016381175178-cmfr771no74ue4s50bqt7vm3fvpkbkmk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFCUys1EwQoIrWGLjdI73BzYXW1AgMzfs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1016381175178-cmfr771no74ue4s50bqt7vm3fvpkbkmk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
