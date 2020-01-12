@@ -10,6 +10,8 @@ import com.batch.labtimecard.R
 import com.batch.labtimecard.model.Member
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_member_list.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class MemberListActivity : AppCompatActivity(), MemberListController.ClickListener {
@@ -72,6 +74,15 @@ class MemberListActivity : AppCompatActivity(), MemberListController.ClickListen
     }
 
     override fun itemClickListenter(item: Member) {
-        Toast.makeText(applicationContext, item.name, Toast.LENGTH_SHORT).show()
+        val date = Date(System.currentTimeMillis())
+        val dateFormat = SimpleDateFormat("yyyy/MM/dd")
+        val today = dateFormat.format(date)
+        val ref  = database.getReference("logs").child(item.name.toString()).child(today)
+        val insertDateFormat = SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
+        val loginTime = insertDateFormat.format(date)
+        val map = kotlin.collections.HashMap<String, String>()
+        map.set("loginTime", loginTime)
+        ref.setValue(map)
+        Toast.makeText(applicationContext, "${item.name}+${loginTime}", Toast.LENGTH_SHORT).show()
     }
 }
