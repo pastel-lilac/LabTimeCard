@@ -3,8 +3,10 @@ package com.batch.labtimecard.ui
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.batch.labtimecard.R
@@ -60,7 +62,6 @@ class MemberListActivity : AppCompatActivity(), MemberListController.ClickListen
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 memberList.clear()
                 dataSnapshot.children.forEach { ds ->
-                    Log.d(TAG, ds.toString())
                     val member = ds.getValue(Member::class.java)
                     if (member != null) {
                         memberList.add(member)
@@ -83,7 +84,6 @@ class MemberListActivity : AppCompatActivity(), MemberListController.ClickListen
         val time = insertDateFormat.format(date)
         val timeMap = kotlin.collections.HashMap<String, String>()
         timeMap.set("time", time)
-        Toast.makeText(applicationContext, pref.getBoolean("${item.name}isExisting", false).toString(), Toast.LENGTH_SHORT).show()
         if (pref.getBoolean("${item.name}isExisting", false)) { // 選択されたメンバーがログイン中のとき
             // databaseに保存する子のキー名をlogoutにする
             val ref  = database.getReference("logs").child(item.name.toString()).child(today).child("logout")
@@ -93,7 +93,7 @@ class MemberListActivity : AppCompatActivity(), MemberListController.ClickListen
                 commit()
             }
             // ログアウトした時間をdatabaseに保存
-            ref.setValue(timeMap)
+//            ref.setValue(timeMap)
         } else { // 選択されたメンバーがログイン中じゃないとき
             // databaseに保存する子のキー名をloginにする
             val ref  = database.getReference("logs").child(item.name.toString()).child(today).child("login")
@@ -103,7 +103,7 @@ class MemberListActivity : AppCompatActivity(), MemberListController.ClickListen
                 commit()
             }
             // ログインした時間をdatabaseに保存
-            ref.setValue(timeMap)
+//            ref.setValue(timeMap)
 
         }
     }

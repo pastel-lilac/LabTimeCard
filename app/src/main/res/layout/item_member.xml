@@ -50,6 +50,13 @@
                     android:layout_gravity="center_horizontal"
                     android:text="@{member.affiliationLabName}" />
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/isExisting_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:visible="@{member.name}"
+                android:text="研究なう" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </layout>
