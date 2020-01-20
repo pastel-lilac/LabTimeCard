@@ -1,3 +1,12 @@
+---
+name: basic report
+about: The base issue template
+title: ''
+labels: ''
+assignees: ''
+
+---
+
 ## Kind (Required)
 
 Choose the suitable template if exists.
@@ -11,6 +20,6 @@ Choose the suitable template if exists.
 
 - 
 
- ## Links
+ ## Links	
 
-- 
+-
