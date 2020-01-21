@@ -75,7 +75,7 @@ class MemberListActivity : AppCompatActivity(), MemberListController.ClickListen
         })
     }
 
-    override fun itemClickListenter(item: Member) {
+    override fun itemClickListener(item: Member) {
         val pref = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE)
         val date = Date(System.currentTimeMillis())
         val dateFormat = SimpleDateFormat("yyyy-MM-dd")
