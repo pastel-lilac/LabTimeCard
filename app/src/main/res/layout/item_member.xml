@@ -6,14 +6,11 @@
         <variable
             name="member"
             type="com.batch.labtimecard.model.Member" />
-        <variable
-            name="itemClickListener"
-            type="android.view.View.OnClickListener" />
     </data>
     <androidx.cardview.widget.CardView
+        android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="@{itemClickListener}"
         android:layout_margin="10dp"
         app:cardCornerRadius="10dp" >
         <LinearLayout
