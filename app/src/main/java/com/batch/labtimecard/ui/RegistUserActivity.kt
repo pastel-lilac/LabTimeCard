@@ -1,0 +1,13 @@
+package com.batch.labtimecard.ui
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import com.batch.labtimecard.R
+
+class RegistUserActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_regist_user)
+    }
+}
