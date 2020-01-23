@@ -46,11 +46,11 @@ class MemberItemView @JvmOverloads constructor(
             listener?.itemClickListener(member)
             if (!isClicked) {
                 binding.itemMemberLayout.setBackgroundColor(
-                    ContextCompat.getColor(context, R.color.colorPrimary)
+                    ContextCompat.getColor(context, R.color.online)
                 )
             }else {
                 binding.itemMemberLayout.setBackgroundColor(
-                    ContextCompat.getColor(context, android.R.color.darker_gray)
+                    ContextCompat.getColor(context, R.color.offline)
                 )
             }
             isClicked = !isClicked

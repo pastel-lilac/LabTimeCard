@@ -6,4 +6,6 @@
     <color name="nkmrLab">#F7B52B</color>
     <color name="inmrLab">#009FE8</color>
     <color name="colorCursor">#6e5773</color>
+    <color name="online">#74c239</color>
+    <color name="offline">#a39e9e</color>
 </resources>
