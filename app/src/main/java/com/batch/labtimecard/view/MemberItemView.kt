@@ -27,9 +27,6 @@ class MemberItemView @JvmOverloads constructor(
 
     private lateinit var memberData: MemberData
 
-    // FIXME ログイン状態はMemberListViewModelで管理する
-    private var isClicked = false
-
     init {
         val inflater = LayoutInflater.from(context)
         binding = DataBindingUtil.inflate(inflater, R.layout.item_member, this, true)
@@ -45,16 +42,16 @@ class MemberItemView @JvmOverloads constructor(
     fun setListener(listener: MemberListController.ClickListener?) {
         binding.card.setOnClickListener {
             listener?.itemClickListener(memberData)
-            if (!isClicked) {
+            val isActive = memberData.member?.active ?: false
+            if (!isActive) {
                 binding.itemMemberLayout.setBackgroundColor(
                     ContextCompat.getColor(context, R.color.online)
                 )
-            }else {
+            } else {
                 binding.itemMemberLayout.setBackgroundColor(
                     ContextCompat.getColor(context, R.color.offline)
                 )
             }
-            isClicked = !isClicked
         }
     }
 }

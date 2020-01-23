@@ -29,11 +29,11 @@ class MemberListViewModel(application: Application): AndroidViewModel(applicatio
         val ref = database.getReference("members")
         ref.addValueEventListener(object: ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                Log.d(TAG, dataSnapshot.toString())
+//                Log.d(TAG, dataSnapshot.toString())
                 memberDataList.clear()
                 dataSnapshot.children.forEach { ds ->
                     val member = ds.getValue(Member::class.java)
-                    Log.d(TAG, member.toString())
+//                    Log.d(TAG, member.toString())
                     if (member != null) {
                         memberDataList.add(MemberData(ds.key, member))
                     }
@@ -54,7 +54,7 @@ class MemberListViewModel(application: Application): AndroidViewModel(applicatio
         val refLog = database.getReference("logs").child(item.key.toString()).child(today)
         val refAct = database.getReference("members").child(item.key.toString())
 
-        val isActive = item.member?.active ?: true
+        val isActive = item.member?.active ?: false
         val actMap: MutableMap<String, Any> = HashMap()
         if (isActive) {
             timeMap["logoutTime"] = time
