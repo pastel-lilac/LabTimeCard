@@ -56,12 +56,14 @@
                 android:id="@+id/nkmr_radio_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:buttonTint="@color/nkmrLab"
                 android:text="@string/nkmr_lab" />
 
             <RadioButton
                 android:id="@+id/inmr_radio_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:buttonTint="@color/inmrLab"
                 android:layout_marginLeft="8dp"
                 android:text="@string/inmr_lab" />
 
