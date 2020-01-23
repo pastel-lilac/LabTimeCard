@@ -53,4 +53,6 @@ dependencies {
     implementation "com.airbnb.android:epoxy:$epoxyVersion"
     kapt "com.airbnb.android:epoxy-processor:$epoxyVersion"
     implementation "com.airbnb.android:epoxy-databinding:$epoxyVersion"
+
+    implementation "androidx.lifecycle:lifecycle-extensions:2.1.0"
 }

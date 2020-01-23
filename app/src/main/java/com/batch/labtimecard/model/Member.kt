@@ -5,5 +5,6 @@ import com.google.firebase.database.IgnoreExtraProperties
 @IgnoreExtraProperties
 data class Member(
     val name: String? = "",
-    val affiliationLabName: String? = ""
+    val affiliationLabName: String? = "",
+    val active: Boolean? = null
 )

@@ -34,8 +34,7 @@ class RegistUserActivity : AppCompatActivity() {
         }
         // members配下にmemberデータの挿入
         val ref = database.getReference("members").push()
-        val key = ref.key
-        val member = Member(name = name, affiliationLabName = affiliationLabName.toString())
+        val member = Member(name = name, affiliationLabName = affiliationLabName.toString(), active = false)
         ref.setValue(member)
         val intent = Intent(this, MemberListActivity::class.java)
 
