@@ -4,8 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
-            name="member"
-            type="com.batch.labtimecard.model.Member" />
+            name="memberData"
+            type="com.batch.labtimecard.model.MemberData" />
     </data>
     <androidx.cardview.widget.CardView
         android:id="@+id/card"
@@ -25,7 +25,7 @@
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 tools:src="@drawable/inam_logo"
-                setImage="@{member.affiliationLabName}"/>
+                setImage="@{memberData.member.affiliationLabName}"/>
                 <TextView
                     android:id="@+id/name_text_view"
                     android:layout_width="wrap_content"
@@ -33,7 +33,7 @@
                     android:textAlignment="center"
                     tools:text="Inamura Hiroshi"
                     android:textSize="30dp"
-                    android:text="@{member.name}" />
+                    android:text="@{memberData.member.name}" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </layout>

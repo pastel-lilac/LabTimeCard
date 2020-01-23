@@ -13,6 +13,7 @@ import com.airbnb.epoxy.ModelView
 import com.batch.labtimecard.R
 import com.batch.labtimecard.databinding.ItemMemberBinding
 import com.batch.labtimecard.model.Member
+import com.batch.labtimecard.model.MemberData
 import com.batch.labtimecard.ui.MemberListController
 
 @ModelView(autoLayout = ModelView.Size.MATCH_WIDTH_WRAP_HEIGHT)
@@ -24,10 +25,7 @@ class MemberItemView @JvmOverloads constructor(
 
     private val binding: ItemMemberBinding
 
-    private lateinit var member: Member
-
-    // FIXME ログイン状態はMemberListViewModelで管理する
-    private var isClicked = false
+    private lateinit var memberData: MemberData
 
     init {
         val inflater = LayoutInflater.from(context)
@@ -35,25 +33,25 @@ class MemberItemView @JvmOverloads constructor(
     }
 
     @ModelProp
-    fun setMember(member: Member) {
-        this.member = member
-        binding.member = member
+    fun setMember(memberData: MemberData) {
+        this.memberData = memberData
+        binding.memberData = memberData
     }
 
     @CallbackProp
     fun setListener(listener: MemberListController.ClickListener?) {
         binding.card.setOnClickListener {
-            listener?.itemClickListener(member)
-            if (!isClicked) {
+            listener?.itemClickListener(memberData)
+            val isActive = memberData.member?.active ?: false
+            if (!isActive) {
                 binding.itemMemberLayout.setBackgroundColor(
                     ContextCompat.getColor(context, R.color.online)
                 )
-            }else {
+            } else {
                 binding.itemMemberLayout.setBackgroundColor(
                     ContextCompat.getColor(context, R.color.offline)
                 )
             }
-            isClicked = !isClicked
         }
     }
 }
