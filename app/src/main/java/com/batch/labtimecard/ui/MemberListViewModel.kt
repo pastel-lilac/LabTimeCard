@@ -58,7 +58,7 @@ class MemberListViewModel(application: Application): AndroidViewModel(applicatio
         val time = SimpleDateFormat("HH:mm:ss").format(date)
         val name = item.member.name
         val timeMap: MutableMap<String, Any> = HashMap()
-        val ref = database.getReference("logs").child(name.toString()).child(today)
+        val ref = database.getReference("logs").child(item.key.toString())
         if (pref.getBoolean("${name}isExisting", false)) {
             timeMap["logoutTime"] = time
             Toast.makeText(context, "ログアウトしました\n名前${name} 時刻${time}", Toast.LENGTH_SHORT).show()
@@ -66,7 +66,7 @@ class MemberListViewModel(application: Application): AndroidViewModel(applicatio
                 putBoolean("${name}isExisting", false)
                 commit()
             }
-            ref.updateChildren(timeMap)
+            ref.child(today).updateChildren(timeMap)
         } else {
             timeMap["loginTime"] = time
             timeMap["logoutTime"] = ""
@@ -76,7 +76,7 @@ class MemberListViewModel(application: Application): AndroidViewModel(applicatio
                 commit()
             }
             // ログインした時間をdatabaseに保存
-            ref.setValue(timeMap)
+            ref.child(today).setValue(timeMap)
         }
     }
 }
