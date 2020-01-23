@@ -51,6 +51,6 @@ class MemberListActivity : AppCompatActivity(), MemberListController.ClickListen
     }
 
     override fun itemClickListener(item: MemberData) {
-        viewModel.login(item)
+        viewModel.loginLogout(item)
     }
 }
