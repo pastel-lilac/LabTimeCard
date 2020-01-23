@@ -20,40 +20,20 @@
             android:orientation="vertical"
             android:gravity="center_horizontal"
             android:padding="10dp"
-            android:background="@android:color/darker_gray">
+            android:background="@color/offline">
             <ImageView
-                android:layout_width="200dp"
-                android:layout_height="200dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                tools:src="@drawable/inam_logo"
                 setImage="@{member.affiliationLabName}"/>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" >
                 <TextView
                     android:id="@+id/name_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="Name"
+                    android:textAlignment="center"
+                    tools:text="Inamura Hiroshi"
                     android:textSize="30dp"
-                    android:layout_gravity="center_horizontal"
                     android:text="@{member.name}" />
-
-                <TextView
-                    android:id="@+id/affiliation_teaxt_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:text="所属"
-                    android:textSize="30dp"
-                    android:layout_gravity="center_horizontal"
-                    android:text="@{member.affiliationLabName}" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/isExisting_text_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:visible="@{member.name}"
-                android:text="研究なう" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </layout>
