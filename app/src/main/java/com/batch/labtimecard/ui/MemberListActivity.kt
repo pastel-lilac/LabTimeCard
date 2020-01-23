@@ -3,13 +3,13 @@ package com.batch.labtimecard.ui
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.batch.labtimecard.R
-import com.batch.labtimecard.model.Member
 import com.batch.labtimecard.model.MemberData
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_member_list.*
@@ -20,18 +20,18 @@ import kotlin.collections.HashMap
 
 class MemberListActivity : AppCompatActivity(), MemberListController.ClickListener {
 
-    private val TAG = "ORENOTAG"
-
-
     private lateinit var database: FirebaseDatabase
     private val controller by lazy { MemberListController(this) }
-    val memberDataList: MutableList<MemberData> = mutableListOf()
+    private lateinit var viewModel: MemberListViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_member_list)
+        viewModel = ViewModelProviders.of(this).get(MemberListViewModel::class.java)
+        observeMembers()
         database = FirebaseDatabase.getInstance()
-        readDatabase()
+        viewModel.fetchFromRemote()
+//        readDatabase()
 
         member_list_recycler_view.apply {
             layoutManager = LinearLayoutManager(applicationContext)
@@ -52,23 +52,9 @@ class MemberListActivity : AppCompatActivity(), MemberListController.ClickListen
         startActivity(intent)
     }
 
-    private fun readDatabase() {
-        val ref = database.getReference("members")
-        ref.addValueEventListener(object: ValueEventListener{
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                memberDataList.clear()
-                dataSnapshot.children.forEach { ds ->
-                    Log.d(TAG, ds.toString())
-                    val member = ds.getValue(Member::class.java)
-                    if (member != null) {
-                        memberDataList.add(MemberData(ds.key, member))
-                    }
-                }
-                controller.setData(memberDataList)
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-            }
+    private fun observeMembers() {
+        viewModel.members.observe(this, Observer {
+            controller.setData(it)
         })
     }
 
