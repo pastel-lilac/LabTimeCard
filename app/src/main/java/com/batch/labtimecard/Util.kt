@@ -11,9 +11,9 @@ import androidx.databinding.BindingAdapter
 @BindingAdapter("setImage")
 fun ImageView.setImage(labName: String) {
     if (labName == context.getString(R.string.nkmr_lab)) {
-        setImageResource(R.drawable.sarimaru)
+        setImageResource(R.drawable.nakam_logo)
     } else {
-        setImageResource(R.drawable.enako)
+        setImageResource(R.drawable.inam_logo)
     }
 }
 
