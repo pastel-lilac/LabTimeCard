@@ -1,6 +1,7 @@
 package com.batch.labtimecard.ui
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -42,18 +43,13 @@ class MemberListActivity : AppCompatActivity(), MemberListController.ClickListen
             layoutManager = manager
         }
         button_person_add.setOnClickListener {
-            openEditPersonScreen()
+            openRegistUserActivity()
         }
     }
 
-    private fun openEditPersonScreen() {
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.add(
-            R.id.fragment_container,
-            EditUserFragment()
-        )
-        transaction.addToBackStack(null)
-        transaction.commit()
+    private fun openRegistUserActivity() {
+        val intent = Intent(this, RegistUserActivity::class.java)
+        startActivity(intent)
     }
 
     private fun readDatabase() {
