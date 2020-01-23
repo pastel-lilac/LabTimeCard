@@ -45,7 +45,7 @@ class MemberListViewModel(application: Application): AndroidViewModel(applicatio
         })
     }
 
-    fun login(item: MemberData) {
+    fun loginLogout(item: MemberData) {
         val date = Date(System.currentTimeMillis())
         val today = SimpleDateFormat("yyyy-MM-dd").format(date)
         val time = SimpleDateFormat("HH:mm:ss").format(date)
