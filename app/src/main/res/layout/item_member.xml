@@ -26,6 +26,9 @@
                 android:layout_height="150dp"
                 tools:src="@drawable/inam_logo"
                 setImage="@{memberData.member.affiliationLabName}"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
                 <TextView
                     android:id="@+id/name_text_view"
                     android:layout_width="wrap_content"
@@ -34,6 +37,13 @@
                     tools:text="Inamura Hiroshi"
                     android:textSize="30dp"
                     android:text="@{memberData.member.name}" />
+                <ImageButton
+                    android:id="@+id/button_more"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_more_vert"
+                    android:background="@null"/>
+            </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </layout>
