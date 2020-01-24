@@ -3,6 +3,7 @@ package com.batch.labtimecard.ui
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -13,6 +14,7 @@ import com.batch.labtimecard.R
 import com.batch.labtimecard.model.MemberData
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_member_list.*
+import kotlinx.android.synthetic.main.item_member.*
 
 class MemberListActivity : AppCompatActivity(), MemberListController.ClickListener {
 
@@ -30,7 +32,7 @@ class MemberListActivity : AppCompatActivity(), MemberListController.ClickListen
         member_list_recycler_view.apply {
             layoutManager = LinearLayoutManager(applicationContext)
             adapter = controller.adapter
-            val manager= GridLayoutManager(applicationContext, 4).apply {
+            val manager = GridLayoutManager(applicationContext, 4).apply {
                 spanSizeLookup = controller.spanSizeLookup
                 recycleChildrenOnDetach = true
             }
@@ -57,7 +59,6 @@ class MemberListActivity : AppCompatActivity(), MemberListController.ClickListen
     }
 
     override fun buttonClickListener(item: MemberData) {
-        Log.d("ORENO", item.toString())
-        Toast.makeText(applicationContext, "more button tap\n${item.member}", Toast.LENGTH_SHORT).show()
     }
 }
+
