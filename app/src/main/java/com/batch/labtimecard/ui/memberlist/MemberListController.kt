@@ -1,7 +1,6 @@
-package com.batch.labtimecard.ui
+package com.batch.labtimecard.ui.memberlist
 
 import com.airbnb.epoxy.TypedEpoxyController
-import com.batch.labtimecard.model.Member
 import com.batch.labtimecard.model.MemberData
 import com.batch.labtimecard.view.memberItemView
 

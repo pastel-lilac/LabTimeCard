@@ -1,4 +1,4 @@
-package com.batch.labtimecard.ui
+package com.batch.labtimecard.ui.registuser
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.batch.labtimecard.R
 import com.batch.labtimecard.model.Member
+import com.batch.labtimecard.ui.memberlist.MemberListActivity
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_regist_user.*
 
