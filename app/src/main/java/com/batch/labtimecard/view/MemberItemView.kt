@@ -47,7 +47,7 @@ class MemberItemView @JvmOverloads constructor(
     @CallbackProp
     fun setListener(listener: MemberListController.ClickListener?) {
         binding.card.setOnClickListener {
-            val builder = AlertDialog.Builder(context)
+            val builder = AlertDialog.Builder(context, R.style.MyAlertDialogStyle)
             val dialogMessage: String
             val isActive = memberData.member?.active ?: false
             val activeColorInt: Int
