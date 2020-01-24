@@ -2,6 +2,8 @@ package com.batch.labtimecard.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -52,5 +54,10 @@ class MemberListActivity : AppCompatActivity(), MemberListController.ClickListen
 
     override fun itemClickListener(item: MemberData) {
         viewModel.loginLogout(item)
+    }
+
+    override fun buttonClickListener(item: MemberData) {
+        Log.d("ORENO", item.toString())
+        Toast.makeText(applicationContext, "more button tap\n${item.member}", Toast.LENGTH_SHORT).show()
     }
 }
