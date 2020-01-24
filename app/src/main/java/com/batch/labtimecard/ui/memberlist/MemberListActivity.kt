@@ -3,6 +3,7 @@ package com.batch.labtimecard.ui.memberlist
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.PopupMenu
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -45,6 +46,7 @@ class MemberListActivity : AppCompatActivity(),
             }
             layoutManager = manager
         }
+//        button_person_add.visibility = View.GONE
         button_person_add.setOnClickListener {
             openRegistUserActivity()
         }
