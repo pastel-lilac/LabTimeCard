@@ -7,8 +7,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import android.widget.PopupMenu
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProviders
 import com.airbnb.epoxy.CallbackProp
 import com.airbnb.epoxy.ModelProp
 import com.airbnb.epoxy.ModelView
@@ -17,6 +20,7 @@ import com.batch.labtimecard.databinding.ItemMemberBinding
 import com.batch.labtimecard.model.MemberData
 import com.batch.labtimecard.ui.log.LogActivity
 import com.batch.labtimecard.ui.memberlist.MemberListController
+import com.batch.labtimecard.ui.memberlist.MemberListViewModel
 import kotlinx.android.synthetic.main.item_member.view.*
 
 @ModelView(autoLayout = ModelView.Size.MATCH_WIDTH_WRAP_HEIGHT)
@@ -43,17 +47,26 @@ class MemberItemView @JvmOverloads constructor(
     @CallbackProp
     fun setListener(listener: MemberListController.ClickListener?) {
         binding.card.setOnClickListener {
-            listener?.itemClickListener(memberData)
+            val builder = AlertDialog.Builder(context, R.style.MyAlertDialogStyle)
+            val dialogMessage: String
             val isActive = memberData.member?.active ?: false
+            val activeColorInt: Int
             if (!isActive) {
-                binding.itemMemberLayout.setBackgroundColor(
-                    ContextCompat.getColor(context, R.color.online)
-                )
+                dialogMessage = "${memberData.member?.name}でログインします"
+                activeColorInt = ContextCompat.getColor(context, R.color.online)
             } else {
-                binding.itemMemberLayout.setBackgroundColor(
-                    ContextCompat.getColor(context, R.color.offline)
-                )
+                dialogMessage = "${memberData.member?.name}でログアウトします"
+                activeColorInt = ContextCompat.getColor(context, R.color.offline)
             }
+            builder.setTitle("確認")
+            builder.setMessage(dialogMessage)
+                .setPositiveButton("OK") { _, _ ->
+                    listener?.itemClickListener(memberData)
+                    binding.itemMemberLayout.setBackgroundColor(activeColorInt)
+                }
+                .setNegativeButton("Cancel") { _, _ ->
+                }
+            builder.show()
         }
     }
 
