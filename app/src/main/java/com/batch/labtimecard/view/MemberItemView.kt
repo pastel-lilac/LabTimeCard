@@ -5,16 +5,21 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.LinearLayout
+import android.widget.PopupMenu
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProviders
 import com.airbnb.epoxy.CallbackProp
 import com.airbnb.epoxy.ModelProp
 import com.airbnb.epoxy.ModelView
 import com.batch.labtimecard.R
 import com.batch.labtimecard.databinding.ItemMemberBinding
-import com.batch.labtimecard.model.Member
 import com.batch.labtimecard.model.MemberData
 import com.batch.labtimecard.ui.MemberListController
+import com.batch.labtimecard.ui.MemberListViewModel
+import kotlinx.android.synthetic.main.item_member.*
+import kotlinx.android.synthetic.main.item_member.view.*
 
 @ModelView(autoLayout = ModelView.Size.MATCH_WIDTH_WRAP_HEIGHT)
 class MemberItemView @JvmOverloads constructor(
@@ -24,7 +29,6 @@ class MemberItemView @JvmOverloads constructor(
 ) : LinearLayout(context, attrs, defStyleAttr) {
 
     private val binding: ItemMemberBinding
-
     private lateinit var memberData: MemberData
 
     init {
@@ -52,6 +56,22 @@ class MemberItemView @JvmOverloads constructor(
                     ContextCompat.getColor(context, R.color.offline)
                 )
             }
+        }
+    }
+
+    @CallbackProp
+    fun buttonSetListener(listener: MemberListController.ClickListener?) {
+        button_more.setOnClickListener {
+            listener?.buttonClickListener(memberData)
+            val popup = PopupMenu(context, button_more)
+            popup.menuInflater.inflate(R.menu.main, popup.menu)
+            popup.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { itemMenu ->
+                when (itemMenu.itemId) {
+                    R.id.show_log -> Log.d("ORENO", itemMenu.itemId.toString())
+                }
+                true
+            })
+            popup.show()
         }
     }
 }

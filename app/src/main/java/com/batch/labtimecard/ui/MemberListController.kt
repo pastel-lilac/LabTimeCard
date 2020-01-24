@@ -9,6 +9,7 @@ class MemberListController(private val callback: ClickListener) : TypedEpoxyCont
 
     interface ClickListener {
         fun itemClickListener(item: MemberData)
+        fun buttonClickListener(item: MemberData)
     }
 
     override fun buildModels(data: List<MemberData>) {
