@@ -17,7 +17,7 @@ class LogViewModel : ViewModel() {
         val logDataList: MutableList<LoginLog> = mutableListOf()
         database = FirebaseDatabase.getInstance()
         val ref = database.getReference("logs").child(memberKey)
-        ref.addValueEventListener(object: ValueEventListener {
+        ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 logDataList.clear()
                 dataSnapshot.children.forEach { ds ->
@@ -28,6 +28,7 @@ class LogViewModel : ViewModel() {
                 }
                 logs.value = logDataList
             }
+
             override fun onCancelled(p0: DatabaseError) {
             }
         })
