@@ -14,9 +14,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashMap
 
-class MemberListViewModel(application: Application): AndroidViewModel(application) {
-
-    val TAG = "ORENOTAG"
+class MemberListViewModel(application: Application) : AndroidViewModel(application) {
 
     val members = MutableLiveData<List<MemberData>>()
     private lateinit var database: FirebaseDatabase
@@ -26,7 +24,7 @@ class MemberListViewModel(application: Application): AndroidViewModel(applicatio
         val memberDataList: MutableList<MemberData> = mutableListOf()
         database = FirebaseDatabase.getInstance()
         val ref = database.getReference("members")
-        ref.addValueEventListener(object: ValueEventListener {
+        ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 //                Log.d(TAG, dataSnapshot.toString())
                 memberDataList.clear()
@@ -39,6 +37,7 @@ class MemberListViewModel(application: Application): AndroidViewModel(applicatio
                 }
                 members.value = memberDataList
             }
+
             override fun onCancelled(error: DatabaseError) {
             }
         })
