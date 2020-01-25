@@ -1,7 +1,9 @@
 package com.batch.labtimecard.ui.log
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,8 +20,7 @@ class LogActivity : AppCompatActivity() {
         setContentView(R.layout.activity_log)
         viewModel = ViewModelProviders.of(this).get(LogViewModel::class.java)
         observeLogs()
-        val intent = getIntent()
-        val memberKey = intent.getStringExtra("memberKey") ?: ""
+        val memberKey = intent.getStringExtra(MEMBER) ?: ""
         viewModel.fetchFromRemote(memberKey)
         log_recycler_view.apply {
             layoutManager = LinearLayoutManager(applicationContext)
@@ -31,5 +32,15 @@ class LogActivity : AppCompatActivity() {
         viewModel.logs.observe(this, Observer {
             controller.setData(it)
         })
+    }
+
+    companion object {
+        private const val MEMBER = "memberKey"
+
+        fun createIntent(activity: Activity, member: String?) =
+            Intent(activity, LogActivity::class.java).apply {
+                putExtra(MEMBER, member)
+            }
+
     }
 }

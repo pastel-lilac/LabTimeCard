@@ -4,7 +4,8 @@ import com.airbnb.epoxy.TypedEpoxyController
 import com.batch.labtimecard.model.MemberData
 import com.batch.labtimecard.view.memberItemView
 
-class MemberListController(private val callback: ClickListener) : TypedEpoxyController<List<MemberData>>() {
+class MemberListController(private val callback: ClickListener) :
+    TypedEpoxyController<List<MemberData>>() {
 
     interface ClickListener {
         fun itemClickListener(item: MemberData)
