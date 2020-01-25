@@ -1,17 +1,14 @@
 package com.batch.labtimecard.view
 
+import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import android.widget.PopupMenu
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProviders
 import com.airbnb.epoxy.CallbackProp
 import com.airbnb.epoxy.ModelProp
 import com.airbnb.epoxy.ModelView
@@ -20,7 +17,6 @@ import com.batch.labtimecard.databinding.ItemMemberBinding
 import com.batch.labtimecard.model.MemberData
 import com.batch.labtimecard.ui.log.LogActivity
 import com.batch.labtimecard.ui.memberlist.MemberListController
-import com.batch.labtimecard.ui.memberlist.MemberListViewModel
 import kotlinx.android.synthetic.main.item_member.view.*
 
 @ModelView(autoLayout = ModelView.Size.MATCH_WIDTH_WRAP_HEIGHT)
@@ -47,26 +43,25 @@ class MemberItemView @JvmOverloads constructor(
     @CallbackProp
     fun setListener(listener: MemberListController.ClickListener?) {
         binding.card.setOnClickListener {
-            val builder = AlertDialog.Builder(context, R.style.MyAlertDialogStyle)
             val dialogMessage: String
             val isActive = memberData.member?.active ?: false
-            val activeColorInt: Int
-            if (!isActive) {
+            val activeColorInt = if (!isActive) {
                 dialogMessage = "${memberData.member?.name}でログインします"
-                activeColorInt = ContextCompat.getColor(context, R.color.online)
+                ContextCompat.getColor(context, R.color.online)
             } else {
                 dialogMessage = "${memberData.member?.name}でログアウトします"
-                activeColorInt = ContextCompat.getColor(context, R.color.offline)
+                ContextCompat.getColor(context, R.color.offline)
             }
-            builder.setTitle("確認")
-            builder.setMessage(dialogMessage)
-                .setPositiveButton("OK") { _, _ ->
+            AlertDialog.Builder(context, R.style.MyAlertDialogStyle).apply {
+                setTitle("確認")
+                setMessage(dialogMessage)
+                setPositiveButton("OK") { _, _ ->
                     listener?.itemClickListener(memberData)
                     binding.itemMemberLayout.setBackgroundColor(activeColorInt)
                 }
-                .setNegativeButton("Cancel") { _, _ ->
+                setNegativeButton("Cancel") { _, _ ->
                 }
-            builder.show()
+            }.show()
         }
     }
 
@@ -76,16 +71,18 @@ class MemberItemView @JvmOverloads constructor(
             listener?.buttonClickListener(memberData)
             val popup = PopupMenu(context, button_more)
             popup.menuInflater.inflate(R.menu.main, popup.menu)
-            popup.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { itemMenu ->
+            popup.setOnMenuItemClickListener { itemMenu ->
                 when (itemMenu.itemId) {
                     R.id.show_log -> {
-                        val intent = Intent(context, LogActivity::class.java)
-                        intent.putExtra("memberKey", memberData.key)
+                        val intent = LogActivity.createIntent(
+                            context as Activity,
+                            memberData.key
+                        )
                         context.startActivity(intent)
                     }
                 }
                 true
-            })
+            }
             popup.show()
         }
     }

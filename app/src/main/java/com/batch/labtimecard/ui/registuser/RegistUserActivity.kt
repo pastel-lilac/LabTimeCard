@@ -1,12 +1,13 @@
 package com.batch.labtimecard.ui.registuser
 
+import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import com.batch.labtimecard.R
 import com.batch.labtimecard.model.Member
 import com.batch.labtimecard.ui.memberlist.MemberListActivity
@@ -35,9 +36,10 @@ class RegistUserActivity : AppCompatActivity() {
         }
         // members配下にmemberデータの挿入
         val ref = database.getReference("members").push()
-        val member = Member(name = name, affiliationLabName = affiliationLabName.toString(), active = false)
+        val member =
+            Member(name = name, affiliationLabName = affiliationLabName.toString(), active = false)
         ref.setValue(member)
-        val intent = Intent(this, MemberListActivity::class.java)
+        val intent = MemberListActivity.createIntent(this)
 
 
         if (TextUtils.isEmpty(name) || affiliationLabName == null) {
@@ -51,8 +53,16 @@ class RegistUserActivity : AppCompatActivity() {
                 }
             builder.show()
         } else {
-            Toast.makeText(applicationContext, "${affiliationLabName}の${name}で保存しました", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                applicationContext,
+                "${affiliationLabName}の${name}で保存しました",
+                Toast.LENGTH_SHORT
+            ).show()
         }
         startActivity(intent)
+    }
+
+    companion object {
+        fun createIntent(activity: Activity) = Intent(activity, RegistUserActivity::class.java)
     }
 }
