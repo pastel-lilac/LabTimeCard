@@ -4,8 +4,6 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
-apply plugin: 'com.google.gms.google-services'
-
 apply plugin: 'kotlin-kapt'
 
 
@@ -40,6 +38,12 @@ dependencies {
     androidTestImplementation Libs.androidJunit
     androidTestImplementation Libs.espresso
 
+    implementation project(":common")
+    implementation project(":feature:log")
+    implementation project(":feature:member")
+    implementation project(":feature:register")
+
+
     // material
     implementation Libs.material
 
@@ -53,4 +57,10 @@ dependencies {
     implementation Libs.epoxyDatabinding
 
     implementation Libs.lifecycle
+
+    implementation Libs.koinAndroid
+    implementation Libs.koinAndroidxScope
+    implementation Libs.koinViewModel
 }
+
+apply plugin: 'com.google.gms.google-services'
