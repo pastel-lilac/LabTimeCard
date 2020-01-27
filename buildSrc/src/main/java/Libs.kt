@@ -13,6 +13,8 @@ object Libs {
         const val junit = "4.12"
         const val androidJunit = "1.1.1"
         const val espresso = "3.2.0"
+        const val butterKnifePlugin = "10.1.0"
+        const val koin = "2.0.1"
     }
 
     const val kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
@@ -41,4 +43,11 @@ object Libs {
     const val junit = "junit:junit:${Versions.junit}"
     const val androidJunit = "androidx.test.ext:junit:${Versions.androidJunit}"
     const val espresso = "androidx.test.espresso:espresso-core:${Versions.espresso}"
+
+    const val butterKnifePlugin =
+        "com.jakewharton:butterknife-gradle-plugin:${Versions.butterKnifePlugin}"
+
+    const val koinAndroid = "org.koin:koin-android:${Versions.koin}"
+    const val koinAndroidxScope = "org.koin:koin-androidx-scope:${Versions.koin}"
+    const val koinViewModel = "org.koin:koin-androidx-viewmodel:${Versions.koin}"
 }

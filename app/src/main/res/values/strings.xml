@@ -1,9 +1,3 @@
 <resources>
     <string name="app_name">LabTimeCard</string>
-    <string name="name">名前</string>
-    <string name="hint_input_your_name">名前を入力してください</string>
-    <string name="nkmr_lab">中村研</string>
-    <string name="inmr_lab">稲村研</string>
-    <string name="register">登録</string>
-    <string name="affiliation">所属</string>
 </resources>
