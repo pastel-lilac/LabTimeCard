@@ -1,2 +1,2 @@
-include ':app'
-rootProject.name='LabTimeCard'
+include ':app', ':feature:log', ':feature:member', ':feature:register', ':data', ':common'
+rootProject.name = 'LabTimeCard'
