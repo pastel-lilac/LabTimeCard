@@ -1,0 +1,16 @@
+<resources>
+
+    <!-- Base application theme. -->
+
+    <style name="common_EditTextStyle" parent="Widget.AppCompat.EditText">
+        <item name="colorControlActivated">@color/common_nkmr_lab</item>
+        <item name="android:textCursorDrawable">@drawable/common_shape_cursor</item>
+    </style>
+
+    <style name="common_MyAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/common_nkmr_lab</item>
+        <item name="android:background">#FFFFFF</item>
+        <item name="android:textColorPrimary">@color/common_nkmr_lab</item>
+    </style>
+
+</resources>

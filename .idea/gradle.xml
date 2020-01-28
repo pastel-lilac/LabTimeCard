@@ -9,6 +9,13 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/buildSrc" />
+            <option value="$PROJECT_DIR$/common" />
+            <option value="$PROJECT_DIR$/data" />
+            <option value="$PROJECT_DIR$/feature" />
+            <option value="$PROJECT_DIR$/feature/log" />
+            <option value="$PROJECT_DIR$/feature/member" />
+            <option value="$PROJECT_DIR$/feature/register" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
