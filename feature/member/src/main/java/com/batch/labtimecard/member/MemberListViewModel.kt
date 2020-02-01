@@ -1,7 +1,5 @@
 package com.batch.labtimecard.member
 
-import android.app.Application
-import android.widget.Toast
 import androidx.lifecycle.*
 import com.batch.labtimecard.data.model.Member
 import com.batch.labtimecard.data.model.MemberData
@@ -26,11 +24,9 @@ class MemberListViewModel() : ViewModel() {
         val ref = database.getReference("members")
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-//                Log.d(TAG, dataSnapshot.toString())
                 memberDataList.clear()
                 dataSnapshot.children.forEach { ds ->
                     val member = ds.getValue(Member::class.java)
-//                    Log.d(TAG, member.toString())
                     if (member != null) {
                         memberDataList.add(MemberData(ds.key, member))
                     }
@@ -53,18 +49,17 @@ class MemberListViewModel() : ViewModel() {
         val refAct = database.getReference("members").child(item.key.toString())
         val isActive = item.member?.active ?: false
         val actMap: MutableMap<String, Any> = HashMap()
-        val m = mapOf("active" to "name")
 //        _isLogedIn.value = _isLogedIn.value?.let { !it } ?: false // テクい書き方
         if (isActive) {
             _isLoggedIn.value = Pair(name, false)
             timeMap["logoutTime"] = time
-            actMap["active"] = isLoggedIn.value ?: false
+            actMap["active"] = isLoggedIn.value?.second ?: false
             refLog.updateChildren(timeMap)
         } else {
             _isLoggedIn.value = Pair(name, true)
             timeMap["loginTime"] = time
             timeMap["logoutTime"] = ""
-            actMap["active"] = isLoggedIn.value ?: true
+            actMap["active"] = isLoggedIn.value?.second ?: true
             refLog.setValue(timeMap)
         }
         refAct.updateChildren(actMap)
