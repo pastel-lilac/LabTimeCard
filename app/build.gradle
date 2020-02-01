@@ -39,6 +39,7 @@ dependencies {
     androidTestImplementation Libs.espresso
 
     implementation project(":common")
+    implementation project(":data")
     implementation project(":feature:log")
     implementation project(":feature:member")
     implementation project(":feature:register")
@@ -51,16 +52,13 @@ dependencies {
     implementation Libs.firebaseAnalytics
     implementation Libs.firebaseDatabase
 
-    // epoxy
-    implementation Libs.epoxy
-    kapt Libs.epoxyApt
-    implementation Libs.epoxyDatabinding
-
     implementation Libs.lifecycle
 
     implementation Libs.koinAndroid
     implementation Libs.koinAndroidxScope
     implementation Libs.koinViewModel
+
+    implementation Libs.timber
 }
 
 apply plugin: 'com.google.gms.google-services'
