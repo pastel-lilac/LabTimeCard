@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.batch.labtimecard.common.navigator.Navigator
+import com.batch.labtimecard.data.model.Member
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_regist_user.*
 import org.koin.android.ext.android.inject
@@ -37,7 +38,7 @@ class RegistUserActivity : AppCompatActivity() {
         // members配下にmemberデータの挿入
         val ref = database.getReference("members").push()
         val member =
-            com.batch.labtimecard.data.model.Member(
+            Member(
                 name = name,
                 affiliationLabName = affiliationLabName.toString(),
                 active = false

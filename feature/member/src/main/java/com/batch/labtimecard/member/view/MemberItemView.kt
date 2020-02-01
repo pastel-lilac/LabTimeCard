@@ -28,6 +28,7 @@ class MemberItemView @JvmOverloads constructor(
     private val binding: ItemMemberBinding
     private lateinit var memberData: MemberData
 
+
     init {
         val inflater = LayoutInflater.from(context)
         binding = DataBindingUtil.inflate(inflater, R.layout.item_member, this, true)
@@ -37,6 +38,13 @@ class MemberItemView @JvmOverloads constructor(
     fun setMember(memberData: MemberData) {
         this.memberData = memberData
         binding.memberData = memberData
+        val isActive = memberData.member?.active ?: return
+        val activeColorInt = if (isActive) {
+            ContextCompat.getColor(context, R.color.online)
+        } else {
+            ContextCompat.getColor(context, R.color.offline)
+        }
+        binding.itemMemberLayout.setBackgroundColor(activeColorInt)
     }
 
     @CallbackProp
