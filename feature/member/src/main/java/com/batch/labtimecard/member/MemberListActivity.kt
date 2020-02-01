@@ -7,7 +7,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.batch.labtimecard.common.navigator.Navigator
@@ -17,7 +16,6 @@ import com.batch.labtimecard.data.model.MemberData
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_member_list.*
 import org.koin.android.ext.android.inject
-import java.security.acl.Owner
 
 class MemberListActivity : AppCompatActivity(),
     MemberListController.ClickListener {
@@ -37,7 +35,7 @@ class MemberListActivity : AppCompatActivity(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_member_list)
-//        viewModel = ViewModelProviders.of(this).get(MemberListViewModel::class.java)
+//        viewModel = ViewModelProviders.of(this).get(MemberListViewModel::class.java) // depricated
         observeMembers()
         observeIsLogedIn()
         database = FirebaseDatabase.getInstance()
@@ -51,7 +49,7 @@ class MemberListActivity : AppCompatActivity(),
             }
             layoutManager = manager
         }
-//        button_person_add.visibility = View.GONE
+//        button_person_add.visibility = View.GONE // admin mode
         button_person_add.setOnClickListener {
             navigator.run { navigateToRegist() }
         }
