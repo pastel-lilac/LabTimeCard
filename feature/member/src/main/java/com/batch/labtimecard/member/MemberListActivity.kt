@@ -12,7 +12,6 @@ import com.batch.labtimecard.common.navigator.Navigator
 import com.batch.labtimecard.data.model.MemberData
 import kotlinx.android.synthetic.main.activity_member_list.*
 import org.koin.android.ext.android.inject
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class MemberListActivity : AppCompatActivity() {
@@ -49,7 +48,7 @@ class MemberListActivity : AppCompatActivity() {
             }
             layoutManager = manager
         }
-//        button_person_add.visibility = View.GONE
+//        button_person_add.visibility = View.GONE // admin mode
         button_person_add.setOnClickListener {
             navigator.run { navigateToRegist() }
         }
