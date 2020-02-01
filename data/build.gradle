@@ -27,10 +27,24 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.core:core-ktx:1.1.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation Libs.kotlin
+    implementation Libs.kotlinx
+    implementation Libs.appcompat
+    implementation Libs.coreKtx
+    implementation Libs.constraintLayout
+    implementation Libs.legacy
+    testImplementation Libs.junit
+    androidTestImplementation Libs.androidJunit
+    androidTestImplementation Libs.espresso
+
+    // firebase
+    implementation Libs.firebaseAnalytics
+    implementation Libs.firebaseDatabase
+
+    implementation Libs.koinAndroid
+    implementation Libs.koinAndroidxScope
+    implementation Libs.koinViewModel
+
+    implementation Libs.timber
+    implementation Libs.coroutinePlayServices
 }

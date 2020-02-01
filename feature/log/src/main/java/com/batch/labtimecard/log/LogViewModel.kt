@@ -23,7 +23,12 @@ class LogViewModel : ViewModel() {
                 dataSnapshot.children.forEach { ds ->
                     val time = ds.getValue(LogTime::class.java)
                     if (time != null) {
-                        logDataList.add(LoginLog(ds.key, time))
+                        logDataList.add(
+                            LoginLog(
+                                ds.key,
+                                time
+                            )
+                        )
                     }
                 }
                 logs.value = logDataList
