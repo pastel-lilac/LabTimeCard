@@ -1,9 +1,8 @@
 package com.batch.labtimecard.member
 
-import android.app.Application
-import android.widget.Toast
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.batch.labtimecard.data.model.Member
 import com.batch.labtimecard.data.model.MemberData
 import com.google.firebase.database.DataSnapshot
@@ -13,12 +12,15 @@ import com.google.firebase.database.ValueEventListener
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashMap
+import kotlin.collections.set
 
-class MemberListViewModel(application: Application) : AndroidViewModel(application) {
+
+class MemberListViewModel : ViewModel() {
 
     val members = MutableLiveData<List<MemberData>>()
+    private val _isLoggedIn = MutableLiveData<Pair<String?, Boolean>>()
+    val isLoggedIn: LiveData<Pair<String?, Boolean>> = _isLoggedIn
     private lateinit var database: FirebaseDatabase
-    private val context = getApplication<Application>().applicationContext
 
     fun fetchFromRemote() {
         val memberDataList: MutableList<MemberData> = mutableListOf()
@@ -54,20 +56,21 @@ class MemberListViewModel(application: Application) : AndroidViewModel(applicati
 
         val isActive = item.member?.active ?: false
         val actMap: MutableMap<String, Any> = HashMap()
+        val m = mapOf("active" to "name")
+//        _isLogedIn.value = _isLogedIn.value?.let { !it } ?: false // テクい書き方
         if (isActive) {
+            _isLoggedIn.value = Pair(name, false)
             timeMap["logoutTime"] = time
-            actMap["active"] = false
+            actMap["active"] = isLoggedIn.value ?: false
             refLog.updateChildren(timeMap)
-            refAct.updateChildren(actMap)
-            Toast.makeText(context, "ログアウトしました\n名前${name} 時刻${time}", Toast.LENGTH_SHORT).show()
-
         } else {
+            _isLoggedIn.value = Pair(name, true)
             timeMap["loginTime"] = time
             timeMap["logoutTime"] = ""
-            actMap["active"] = true
+            actMap["active"] = isLoggedIn.value ?: true
             refLog.setValue(timeMap)
-            refAct.updateChildren(actMap)
-            Toast.makeText(context, "ログインしました\n名前${name} 時刻${time}", Toast.LENGTH_SHORT).show()
         }
+        refAct.updateChildren(actMap)
+
     }
 }
