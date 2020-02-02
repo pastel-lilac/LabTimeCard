@@ -12,6 +12,7 @@ import com.batch.labtimecard.common.navigator.Navigator
 import com.batch.labtimecard.data.model.MemberData
 import kotlinx.android.synthetic.main.activity_member_list.*
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class MemberListActivity : AppCompatActivity() {
@@ -29,7 +30,6 @@ class MemberListActivity : AppCompatActivity() {
     private val controller by lazy { MemberListController(listener) }
 
     private val viewModel: MemberListViewModel by viewModel()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
