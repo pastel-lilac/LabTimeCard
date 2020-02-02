@@ -1,6 +1,7 @@
 object Libs {
     object Versions {
         const val kotlin = "1.3.61"
+        const val kotlinx = "1.3.3"
         const val coreKtx = "1.1.0"
         const val appcompat = "1.1.0"
         const val firebaseAnalyticsVersion = "17.2.2"
@@ -15,10 +16,16 @@ object Libs {
         const val espresso = "3.2.0"
         const val butterKnifePlugin = "10.1.0"
         const val koin = "2.0.1"
+        const val timber = "4.7.1"
     }
 
     const val kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
+    const val kotlinx = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.kotlinx}"
+    const val kotlinxAndroid =
+        "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.kotlinx}"
     const val kotlinGradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
+    const val coroutinePlayServices =
+        "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:${Versions.kotlinx}"
 
 
     const val firebaseAnalytics =
@@ -38,6 +45,8 @@ object Libs {
         "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
     const val material = "com.google.android.material:material:${Versions.material}"
     const val lifecycle = "androidx.lifecycle:lifecycle-extensions:${Versions.lifecycle}"
+    const val lifecycleViewModel =
+        "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"
     const val legacy = "androidx.legacy:legacy-support-v4:${Versions.legacy}"
 
     const val junit = "junit:junit:${Versions.junit}"
@@ -50,4 +59,6 @@ object Libs {
     const val koinAndroid = "org.koin:koin-android:${Versions.koin}"
     const val koinAndroidxScope = "org.koin:koin-androidx-scope:${Versions.koin}"
     const val koinViewModel = "org.koin:koin-androidx-viewmodel:${Versions.koin}"
+
+    const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
 }
