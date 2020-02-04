@@ -31,7 +31,6 @@ class MemberListActivity : AppCompatActivity() {
 
     private val viewModel: MemberListViewModel by viewModel()
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_member_list)
