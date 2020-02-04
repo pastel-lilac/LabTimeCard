@@ -32,7 +32,6 @@ class MemberListViewModel(
         }
     }
 
-
     fun updateLoginState(item: MemberData) {
         viewModelScope.launch {
             runCatching { loginUseCase.updateLoginState(item) }
