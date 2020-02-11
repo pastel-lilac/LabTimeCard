@@ -1,5 +1,6 @@
 package com.batch.labtimecard.member
 
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -16,6 +17,7 @@ class MemberListViewModel(
     private val timeCardRepository: TimeCardRepository
 ) : ViewModel() {
 
+
     private val _members = MutableLiveData<List<MemberData>>()
     val members: LiveData<List<MemberData>> = _members
     private val _isLoggedIn = MutableLiveData<Pair<String?, Boolean>>()
@@ -29,7 +31,7 @@ class MemberListViewModel(
                 }
         }
     }
-  
+
     fun updateLoginState(item: MemberData) {
         viewModelScope.launch {
             runCatching { loginUseCase.updateLoginState(item) }
@@ -38,5 +40,6 @@ class MemberListViewModel(
                 }
                 .onFailure { Timber.e(it) }
         }
+
     }
 }

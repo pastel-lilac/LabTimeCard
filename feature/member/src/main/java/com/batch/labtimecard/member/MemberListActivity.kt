@@ -34,6 +34,7 @@ class MemberListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_member_list)
+
         observeMembers()
         observeIsLoggedIn()
         viewModel.fetchFromRemote()
@@ -68,7 +69,6 @@ class MemberListActivity : AppCompatActivity() {
             Toast.makeText(applicationContext, message, Toast.LENGTH_SHORT).show()
         })
     }
-
 
     companion object {
         fun createIntent(activity: Activity) = Intent(activity, MemberListActivity::class.java)
