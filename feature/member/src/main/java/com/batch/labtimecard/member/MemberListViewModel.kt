@@ -22,12 +22,15 @@ class MemberListViewModel(
     val members: LiveData<List<MemberData>> = _members
     private val _isLoggedIn = MutableLiveData<Pair<String?, Boolean>>()
     val isLoggedIn: LiveData<Pair<String?, Boolean>> = _isLoggedIn
+    val isLoading = MutableLiveData<Boolean>()
 
     fun fetchFromRemote() {
+        isLoading.value = true
         viewModelScope.launch {
             timeCardRepository.fetchMembers()
                 .collect {
                     _members.value = it
+                    isLoading.value = false
                 }
         }
     }
