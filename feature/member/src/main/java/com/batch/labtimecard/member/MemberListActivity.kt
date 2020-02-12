@@ -3,6 +3,7 @@ package com.batch.labtimecard.member
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -37,6 +38,8 @@ class MemberListActivity : AppCompatActivity() {
 
         observeMembers()
         observeIsLoggedIn()
+        observeIsLoading()
+
         viewModel.fetchFromRemote()
         member_list_recycler_view.apply {
             layoutManager = LinearLayoutManager(applicationContext)
@@ -67,6 +70,16 @@ class MemberListActivity : AppCompatActivity() {
             val name = it.first
             val message = if (it.second) "${name}がログインしました" else "${name}ログアウトしました"
             Toast.makeText(applicationContext, message, Toast.LENGTH_SHORT).show()
+        })
+    }
+
+    private fun observeIsLoading() {
+        viewModel.isLoading.observe(this, Observer {
+            if (it == true) {
+                progress_bar.visibility = View.VISIBLE
+            } else {
+                progress_bar.visibility = View.GONE
+            }
         })
     }
 
