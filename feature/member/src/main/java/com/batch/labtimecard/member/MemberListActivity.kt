@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -75,11 +76,7 @@ class MemberListActivity : AppCompatActivity() {
 
     private fun observeIsLoading() {
         viewModel.isLoading.observe(this, Observer {
-            if (it == true) {
-                progress_bar.visibility = View.VISIBLE
-            } else {
-                progress_bar.visibility = View.GONE
-            }
+            progress_bar.isVisible = it
         })
     }
 
