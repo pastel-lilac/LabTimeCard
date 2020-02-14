@@ -76,4 +76,12 @@ class TimeCardRepositoryImpl : TimeCardRepository {
             }.await()
         }
     }
+
+    override suspend fun registerMember(member: Member) {
+        val ref = database.getReference(DatabaseKey.MEMBER).push()
+        ref.setValue(member)
+            .addOnFailureListener {
+                throw it
+            }.await()
+    }
 }

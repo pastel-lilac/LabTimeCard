@@ -55,7 +55,7 @@ class MemberListActivity : AppCompatActivity() {
         }
 //        button_person_add.visibility = View.GONE // admin mode
         button_person_add.setOnClickListener {
-            navigator.run { navigateToRegist() }
+            navigator.run { navigateToRegister() }
         }
     }
 

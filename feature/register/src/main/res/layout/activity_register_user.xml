@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.github.pastel_lilac.register.RegisterUserViewModel" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.github.pastel_lilac.register.RegisterUserActivity">
+
+
+        <TextView
+            android:id="@+id/name_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/name"
+            app:layout_constraintBottom_toTopOf="@+id/name_edit_text"
+            app:layout_constraintStart_toStartOf="@+id/name_edit_text"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <EditText
+            android:id="@+id/name_edit_text"
+            style="@style/common_EditTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:hint="@string/hint_input_your_name"
+            android:inputType="textPersonName"
+            android:text="@={viewModel.name}"
+            android:theme="@style/common_EditTextStyle"
+            app:layout_constraintBottom_toTopOf="@+id/affiliation_text_view"
+            app:layout_constraintEnd_toEndOf="@+id/button_register"
+            app:layout_constraintStart_toStartOf="@+id/button_register"
+            app:layout_constraintTop_toBottomOf="@+id/name_text_view" />
+
+        <TextView
+            android:id="@+id/affiliation_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/affiliation"
+            app:layout_constraintBottom_toTopOf="@+id/affiliation_radio_group"
+            app:layout_constraintStart_toStartOf="@+id/name_text_view"
+            app:layout_constraintTop_toBottomOf="@+id/name_edit_text" />
+
+        <RadioGroup
+            android:id="@+id/affiliation_radio_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:onCheckedChanged="@{viewModel.onSplitTypeChanged}"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/button_register"
+            app:layout_constraintStart_toStartOf="@+id/affiliation_text_view"
+            app:layout_constraintTop_toBottomOf="@+id/affiliation_text_view">
+
+            <RadioButton
+                android:id="@+id/nkmr_radio_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/common_nkmr_lab"
+                android:text="@string/common_nkmr_lab" />
+
+            <RadioButton
+                android:id="@+id/inmr_radio_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:buttonTint="@color/common_nkmr_lab"
+                android:text="@string/common_inmr_lab" />
+
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/button_register"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_rounded_corners"
+            android:enabled="@{viewModel.registerButtonEnabled}"
+            android:text="@string/register"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/affiliation_radio_group" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
