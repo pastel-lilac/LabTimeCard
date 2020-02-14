@@ -58,8 +58,11 @@ dependencies {
     implementation Libs.epoxyDatabinding
 
     implementation Libs.lifecycle
+    implementation Libs.lifecycleViewModel
 
     implementation Libs.koinAndroid
     implementation Libs.koinAndroidxScope
     implementation Libs.koinViewModel
+
+    implementation Libs.timber
 }

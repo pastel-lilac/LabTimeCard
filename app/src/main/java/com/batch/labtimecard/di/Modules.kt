@@ -7,6 +7,7 @@ import com.batch.labtimecard.member.MemberListViewModel
 import com.batch.labtimecard.member.usecase.LoginUseCase
 import com.batch.labtimecard.member.usecase.LoginUseCaseImpl
 import com.batch.labtimecard.navigator.NavigatorImpl
+import com.github.pastel_lilac.register.RegisterUserViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -25,6 +26,7 @@ object Modules {
 
     val viewModelModule = module {
         viewModel { MemberListViewModel(get(), get()) }
+        viewModel { RegisterUserViewModel(get()) }
     }
 
 }
