@@ -11,7 +11,6 @@ import com.batch.labtimecard.member.usecase.MemberUseCase
 import com.batch.labtimecard.member.usecase.MemberUseCaseImpl
 import com.batch.labtimecard.navigator.NavigatorImpl
 import com.facebook.stetho.okhttp3.StethoInterceptor
-import com.github.pastel_lilac.register.RegisterUserViewModel
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
@@ -65,7 +64,6 @@ object Modules {
 
     val viewModelModule = module {
         viewModel { MemberListViewModel(get(), get(), get()) }
-        viewModel { RegisterUserViewModel(get()) }
     }
 
 }

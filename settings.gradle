@@ -1,2 +1,2 @@
-include ':app', ':feature:log', ':feature:member', ':feature:register', ':data', ':common'
+include ':app', ':feature:log', ':feature:member', ':data', ':common'
 rootProject.name = 'LabTimeCard'

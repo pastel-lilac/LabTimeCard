@@ -11,7 +11,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.batch.labtimecard.data.api.Group
 import com.batch.labtimecard.data.model.MemberData
+import com.batch.labtimecard.member.MemberListController.Companion.SPAN_COUNT
 import com.batch.labtimecard.member.databinding.ActivityMemberListBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -47,9 +49,7 @@ class MemberListActivity : AppCompatActivity() {
         binding.memberListRecyclerView.apply {
             layoutManager = LinearLayoutManager(applicationContext)
             adapter = controller.adapter
-
-            val manager = GridLayoutManager(applicationContext, 5).apply {
-
+            val manager = GridLayoutManager(applicationContext, SPAN_COUNT).apply {
                 spanSizeLookup = controller.spanSizeLookup
                 recycleChildrenOnDetach = true
             }
@@ -75,7 +75,13 @@ class MemberListActivity : AppCompatActivity() {
 
     private fun observeMembers() {
         viewModel.members.observe(this, Observer {
-            controller.setData(it)
+            val ordered = it
+                .sortedBy { data ->
+                    val gradeString = data.member?.grade ?: return@sortedBy null
+                    val group = Group.nameToEnum(gradeString)
+                    group.orderNumber
+                }
+            controller.setData(ordered)
         })
     }
 

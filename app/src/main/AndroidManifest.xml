@@ -14,9 +14,6 @@
             android:name=".log.LogActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.github.pastel_lilac.register.RegisterUserActivity"
-            android:screenOrientation="landscape" />
-        <activity
             android:name=".member.MemberListActivity"
             android:screenOrientation="landscape">
             <intent-filter>
