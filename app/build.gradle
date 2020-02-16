@@ -59,6 +59,12 @@ dependencies {
     implementation Libs.koinViewModel
 
     implementation Libs.timber
+
+    implementation Libs.okHttp
+    implementation Libs.stetho
+    implementation Libs.retrofit
+    implementation Libs.moshi
+    implementation Libs.retrofitMoshiConverter
 }
 
 apply plugin: 'com.google.gms.google-services'

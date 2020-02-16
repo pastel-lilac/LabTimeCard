@@ -31,7 +31,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/button_more"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:setImage="@{memberData.member.affiliationLabName}"
+                app:setImage="@{memberData.member.iconUrl}"
                 tools:src="@drawable/common_inam_logo" />
 
 
@@ -39,10 +39,10 @@
                 android:id="@+id/name_text_view"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:ellipsize="marquee"
                 android:gravity="center"
                 android:singleLine="true"
-                android:layout_marginTop="8dp"
                 android:text="@{memberData.member.name}"
                 android:textAlignment="center"
                 android:textSize="30dp"

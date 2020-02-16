@@ -47,4 +47,6 @@ dependencies {
 
     implementation Libs.timber
     implementation Libs.coroutinePlayServices
+
+    implementation Libs.retrofit
 }

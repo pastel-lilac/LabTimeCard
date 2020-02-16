@@ -28,6 +28,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
 
 }
 
@@ -65,4 +68,5 @@ dependencies {
     implementation Libs.koinViewModel
 
     implementation Libs.timber
+
 }

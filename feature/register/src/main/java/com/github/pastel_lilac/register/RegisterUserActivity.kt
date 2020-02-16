@@ -45,7 +45,7 @@ class RegisterUserActivity : AppCompatActivity() {
         val member =
             Member(
                 name = name,
-                affiliationLabName = labName,
+                // affiliationLabName = labName,
                 active = false
             )
         viewModel.registerUser(member)
