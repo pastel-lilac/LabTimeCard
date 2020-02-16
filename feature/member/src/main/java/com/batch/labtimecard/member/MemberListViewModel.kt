@@ -52,13 +52,12 @@ class MemberListViewModel(
         }
     }
 
-    fun registerMember() {
+    fun updateAllMember() {
         viewModelScope.launch {
             try {
                 isLoading.value = true
                 _updatingMembers.value = true
-                val slackMember = memberUseCase.getAllMemberProfile(this)
-                memberUseCase.registerMembers(slackMember)
+                memberUseCase.updateYear(this)
                 isLoading.value = false
                 _updatingMembers.value = false
             } catch (e: Exception) {

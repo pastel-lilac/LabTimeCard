@@ -14,7 +14,8 @@ interface TimeCardRepository {
     suspend fun logout(memberKey: String)
     suspend fun updateLog(memberKey: String, isLogin: Boolean)
     suspend fun registerMember(member: Member)
-    suspend fun updateMemberProfile(memberId: String, member: Member)
+    suspend fun removeMember(memberKey: String)
+    suspend fun updateMemberProfile(memberKey: String, member: Member)
     suspend fun getGroupMembers(groupId: String): GroupMembers
     suspend fun getMemberProfile(slackId: String): MemberProfile
     suspend fun removeMembers()

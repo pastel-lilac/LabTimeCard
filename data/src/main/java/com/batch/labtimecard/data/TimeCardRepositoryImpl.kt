@@ -120,8 +120,15 @@ class TimeCardRepositoryImpl(
             }.await()
     }
 
-    override suspend fun updateMemberProfile(memberId: String, member: Member) {
-        val ref = database.getReference(DatabaseKey.MEMBER).child(memberId)
+    override suspend fun removeMember(memberKey: String) {
+        val ref = database.getReference(DatabaseKey.MEMBER).child(memberKey)
+        ref.removeValue().addOnFailureListener {
+            throw it
+        }.await()
+    }
+
+    override suspend fun updateMemberProfile(memberKey: String, member: Member) {
+        val ref = database.getReference(DatabaseKey.MEMBER).child(memberKey)
         ref.setValue(member)
             .addOnFailureListener {
                 throw it

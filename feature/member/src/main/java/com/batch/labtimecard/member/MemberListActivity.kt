@@ -61,7 +61,7 @@ class MemberListActivity : AppCompatActivity() {
                 setMessage("メンバーを更新します")
                 setPositiveButton("OK") { _, _ ->
                     viewModel.isLoading.value = true
-                    viewModel.registerMember()
+                    viewModel.updateAllMember()
                 }
                 setNegativeButton("Cancel") { _, _ ->
                 }
@@ -96,7 +96,7 @@ class MemberListActivity : AppCompatActivity() {
     private fun observeIsLoggedIn() {
         viewModel.isLoggedIn.observe(this, Observer {
             val name = it.first
-            val message = if (it.second) "${name}がログインしました" else "${name}ログアウトしました"
+            val message = if (it.second) "${name}がログインしました" else "${name}がログアウトしました"
             Toast.makeText(applicationContext, message, Toast.LENGTH_SHORT).show()
         })
     }

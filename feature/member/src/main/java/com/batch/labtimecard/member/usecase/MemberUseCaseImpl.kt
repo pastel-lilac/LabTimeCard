@@ -12,7 +12,7 @@ class MemberUseCaseImpl(
 ) : MemberUseCase {
 
     @ExperimentalCoroutinesApi
-    override suspend fun getAllMemberProfile(scope: CoroutineScope) =
+    private suspend fun getAllMemberProfile(scope: CoroutineScope) =
         suspendCancellableCoroutine<List<Member>> { cont ->
             val members = mutableListOf<Member>()
             scope.launch {
@@ -61,12 +61,72 @@ class MemberUseCaseImpl(
         }
     }
 
-    override suspend fun registerMembers(members: List<Member>) {
+    @ExperimentalCoroutinesApi
+    override suspend fun updateYear(scope: CoroutineScope) {
         val existingMembers = repository.fetchMembersOnce()
-        members.filterNot { member ->
-            existingMembers.find { it.member?.slackId == member.slackId }?.let { true } ?: false
-        }.forEach { newMember ->
-            repository.registerMember(newMember)
+        val slackMembers = getAllMemberProfile(scope)
+        removeOldMember(scope, existingMembers, slackMembers)
+        updateGrade(scope, existingMembers, slackMembers)
+        registerMembers(scope, existingMembers, slackMembers)
+    }
+
+    private suspend fun removeOldMember(
+        scope: CoroutineScope,
+        existingMembers: List<MemberData>,
+        newMembers: List<Member>
+    ) = suspendCancellableCoroutine<Unit> { cont ->
+        scope.launch {
+            val oldMembers = existingMembers
+                .filterNot { member ->
+                    newMembers.find { it.slackId == member.member?.slackId }?.let { true } ?: false
+                }
+            oldMembers.mapNotNull {
+                val key = it.key ?: return@mapNotNull null
+                async { repository.removeMember(key) }
+            }.awaitAll()
+            cont.resume(Unit)
+        }
+
+    }
+
+    private suspend fun updateGrade(
+        scope: CoroutineScope,
+        existingMembers: List<MemberData>,
+        newMembers: List<Member>
+    ) = suspendCancellableCoroutine<Unit> { cont ->
+        scope.launch {
+            val newGradeMembers = existingMembers.mapNotNull { member ->
+                newMembers.firstOrNull { member.member?.slackId == it.slackId }?.let {
+                    val newProfile = member.member?.copy(
+                        name = it.name,
+                        grade = it.grade,
+                        iconUrl = it.iconUrl
+                    )
+                    MemberData(member.key, newProfile)
+                }
+            }
+            newGradeMembers.mapNotNull {
+                val key = it.key ?: return@mapNotNull null
+                val member = it.member ?: return@mapNotNull null
+                async { repository.updateMemberProfile(key, member) }
+            }.awaitAll()
+            cont.resume(Unit)
+        }
+    }
+
+    private suspend fun registerMembers(
+        scope: CoroutineScope,
+        existingMembers: List<MemberData>,
+        members: List<Member>
+    ) = suspendCancellableCoroutine<Unit> { cont ->
+        scope.launch {
+            members.filterNot { member ->
+                existingMembers.find { it.member?.slackId == member.slackId }?.let { true }
+                    ?: false
+            }.map { newMember ->
+                async { repository.registerMember(newMember) }
+            }.awaitAll()
+            cont.resume(Unit)
         }
     }
 
