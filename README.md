@@ -7,8 +7,6 @@ LabTimeCard is management attendance app for lab members.
 | <img src ="arts/home.png" width="700"> |
 | log |
 | <img src ="arts/log.png" width="700"> |
-| register |
-| <img src ="arts/regist.png" width="700"> |
 
 # Credit
 This project uses some modern Android libraries source codes.
