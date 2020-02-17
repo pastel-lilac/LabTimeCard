@@ -1,6 +1,0 @@
-<resources>
-    <string name="hint_input_your_name">名前を入力してください</string>
-    <string name="register">登録</string>
-    <string name="affiliation">所属</string>
-    <string name="name">名前</string>
-</resources>

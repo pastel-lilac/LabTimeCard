@@ -3,23 +3,22 @@ package com.batch.labtimecard.member
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.batch.labtimecard.common.navigator.Navigator
+import com.batch.labtimecard.data.api.Group
 import com.batch.labtimecard.data.model.MemberData
-import kotlinx.android.synthetic.main.activity_member_list.*
-import org.koin.android.ext.android.inject
+import com.batch.labtimecard.member.MemberListController.Companion.SPAN_COUNT
+import com.batch.labtimecard.member.databinding.ActivityMemberListBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class MemberListActivity : AppCompatActivity() {
-
-    private val navigator: Navigator by inject()
 
     private val listener = object : MemberListController.ClickListener {
         override fun itemClickListener(item: MemberData) {
@@ -33,35 +32,63 @@ class MemberListActivity : AppCompatActivity() {
 
     private val viewModel: MemberListViewModel by viewModel()
 
+    private lateinit var binding: ActivityMemberListBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_member_list)
 
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_member_list)
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
         observeMembers()
         observeIsLoggedIn()
         observeIsLoading()
-
+        observeUpdatingMembers()
         viewModel.fetchFromRemote()
-        member_list_recycler_view.apply {
+        binding.memberListRecyclerView.apply {
             layoutManager = LinearLayoutManager(applicationContext)
             adapter = controller.adapter
-
-            val manager = GridLayoutManager(applicationContext, 5).apply {
-
+            val manager = GridLayoutManager(applicationContext, SPAN_COUNT).apply {
                 spanSizeLookup = controller.spanSizeLookup
                 recycleChildrenOnDetach = true
             }
             layoutManager = manager
         }
-//        button_person_add.visibility = View.GONE // admin mode
-        button_person_add.setOnClickListener {
-            navigator.run { navigateToRegister() }
+        binding.buttonPersonAdd.setOnClickListener {
+            AlertDialog.Builder(this, R.style.common_MyAlertDialogStyle).apply {
+                setTitle("確認")
+                setMessage("メンバーを更新します")
+                setPositiveButton("OK") { _, _ ->
+                    viewModel.isLoading.value = true
+                    viewModel.updateAllMember()
+                }
+                setNegativeButton("Cancel") { _, _ ->
+                }
+            }.show()
+        }
+        binding.refresh.setOnRefreshListener {
+            viewModel.isRefreshing.value = true
+            viewModel.refresh()
         }
     }
 
     private fun observeMembers() {
         viewModel.members.observe(this, Observer {
-            controller.setData(it)
+            val ordered = it
+                .sortedBy { data ->
+                    val gradeString = data.member?.grade ?: return@sortedBy null
+                    val group = Group.nameToEnum(gradeString)
+                    group.orderNumber
+                }
+            controller.setData(ordered)
+        })
+    }
+
+    private fun observeUpdatingMembers() {
+        viewModel.updatingMembers.observe(this, Observer {
+            if (it) return@Observer
+            Toast.makeText(this, "メンバーを更新しました", Toast.LENGTH_SHORT).show()
         })
     }
 
@@ -69,14 +96,14 @@ class MemberListActivity : AppCompatActivity() {
     private fun observeIsLoggedIn() {
         viewModel.isLoggedIn.observe(this, Observer {
             val name = it.first
-            val message = if (it.second) "${name}がログインしました" else "${name}ログアウトしました"
+            val message = if (it.second) "${name}がログインしました" else "${name}がログアウトしました"
             Toast.makeText(applicationContext, message, Toast.LENGTH_SHORT).show()
         })
     }
 
     private fun observeIsLoading() {
         viewModel.isLoading.observe(this, Observer {
-            progress_bar.isVisible = it
+            binding.progressBar.isVisible = it
         })
     }
 

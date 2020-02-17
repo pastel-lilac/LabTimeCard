@@ -17,6 +17,11 @@ object Libs {
         const val butterKnifePlugin = "10.1.0"
         const val koin = "2.0.1"
         const val timber = "4.7.1"
+        const val okHttp = "4.2.1"
+        const val stetho = "1.5.1"
+        const val retrofit = "2.6.2"
+        const val moshi = "1.9.1"
+        const val coil = "0.9.5"
     }
 
     const val kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
@@ -61,4 +66,12 @@ object Libs {
     const val koinViewModel = "org.koin:koin-androidx-viewmodel:${Versions.koin}"
 
     const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
+
+    const val okHttp = "com.squareup.okhttp3:okhttp:${Versions.okHttp}"
+    const val stetho = "com.facebook.stetho:stetho-okhttp3:${Versions.stetho}"
+    const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
+    const val moshi = "com.squareup.moshi:moshi-kotlin:${Versions.moshi}"
+    const val retrofitMoshiConverter = "com.squareup.retrofit2:converter-moshi:${Versions.retrofit}"
+
+    const val coil = "io.coil-kt:coil:${Versions.coil}"
 }
