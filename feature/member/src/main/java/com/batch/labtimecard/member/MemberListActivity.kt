@@ -75,12 +75,14 @@ class MemberListActivity : AppCompatActivity() {
 
     private fun observeMembers() {
         viewModel.members.observe(this, Observer {
-            val ordered = it
-                .sortedBy { data ->
-                    val gradeString = data.member?.grade ?: return@sortedBy null
-                    val group = Group.nameToEnum(gradeString)
-                    group.orderNumber
-                }
+            val comparator = compareBy<MemberData> { data ->
+                val gradeString = data.member?.grade ?: return@compareBy null
+                val group = Group.nameToEnum(gradeString)
+                group.orderNumber
+            }.thenByDescending { data ->
+                data.member?.active
+            }.thenByDescending { data -> data.key }
+            val ordered = it.sortedWith(comparator)
             controller.setData(ordered)
         })
     }
