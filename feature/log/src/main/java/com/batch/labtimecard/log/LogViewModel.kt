@@ -1,41 +1,35 @@
 package com.batch.labtimecard.log
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.batch.labtimecard.data.model.LogTime
+import androidx.lifecycle.viewModelScope
+import com.batch.labtimecard.data.TimeCardRepository
 import com.batch.labtimecard.data.model.LoginLog
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import kotlinx.coroutines.launch
+import org.threeten.bp.LocalDate
+import timber.log.Timber
+import java.util.*
 
-class LogViewModel : ViewModel() {
-    val logs = MutableLiveData<List<LoginLog>>()
-    private lateinit var database: FirebaseDatabase
+class LogViewModel(
+    private val timeCardRepository: TimeCardRepository
+) : ViewModel() {
 
-    fun fetchFromRemote(memberKey: String) {
-        val logDataList: MutableList<LoginLog> = mutableListOf()
-        database = FirebaseDatabase.getInstance()
-        val ref = database.getReference("logs").child(memberKey)
-        ref.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                logDataList.clear()
-                dataSnapshot.children.forEach { ds ->
-                    val time = ds.getValue(LogTime::class.java)
-                    if (time != null) {
-                        logDataList.add(
-                            LoginLog(
-                                ds.key,
-                                time
-                            )
-                        )
-                    }
-                }
-                logs.value = logDataList
-            }
 
-            override fun onCancelled(p0: DatabaseError) {
-            }
-        })
+    private val _logs = MutableLiveData<List<LoginLog>>()
+    val logs: LiveData<List<LoginLog>> = _logs
+
+    var selectedDate: LocalDate? = null
+
+    var memberKey: String? = null
+
+    fun fetchLogByMonth(month: Date) {
+        viewModelScope.launch {
+            val key = memberKey ?: return@launch
+            runCatching { timeCardRepository.fetchLog(key, month) }
+                .onSuccess { _logs.value = it }
+                .onFailure { Timber.e(it) }
+        }
     }
+
 }

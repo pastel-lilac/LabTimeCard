@@ -40,9 +40,9 @@ class MemberItemView @JvmOverloads constructor(
         binding.memberData = memberData
         val isActive = memberData.member?.active ?: return
         val activeColorInt = if (isActive) {
-            ContextCompat.getColor(context, R.color.online)
+            ContextCompat.getColor(context, R.color.common_online)
         } else {
-            ContextCompat.getColor(context, R.color.offline)
+            ContextCompat.getColor(context, R.color.common_offline)
         }
         binding.itemMemberLayout.setBackgroundColor(activeColorInt)
     }
@@ -54,10 +54,10 @@ class MemberItemView @JvmOverloads constructor(
             val isActive = memberData.member?.active ?: false
             val activeColorInt = if (!isActive) {
                 dialogMessage = "${memberData.member?.name}でログインします"
-                ContextCompat.getColor(context, R.color.online)
+                ContextCompat.getColor(context, R.color.common_online)
             } else {
                 dialogMessage = "${memberData.member?.name}でログアウトします"
-                ContextCompat.getColor(context, R.color.offline)
+                ContextCompat.getColor(context, R.color.common_offline)
             }
             AlertDialog.Builder(context, R.style.common_MyAlertDialogStyle).apply {
                 setTitle("確認")

@@ -37,6 +37,8 @@ dependencies {
     androidTestImplementation Libs.androidJunit
     androidTestImplementation Libs.espresso
 
+    implementation project(":common")
+
     // firebase
     implementation Libs.firebaseAnalytics
     implementation Libs.firebaseDatabase
@@ -49,4 +51,6 @@ dependencies {
     implementation Libs.coroutinePlayServices
 
     implementation Libs.retrofit
+
+    implementation Libs.threeTebAbp
 }

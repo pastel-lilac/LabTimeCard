@@ -7,7 +7,7 @@ object Libs {
         const val firebaseAnalyticsVersion = "17.2.2"
         const val firebaseDatabaseVersion = "19.2.0"
         const val epoxy = "3.8.0"
-        const val constraintLayout = "1.1.3"
+        const val constraintLayout = "2.0.0-beta4"
         const val material = "1.0.0"
         const val lifecycle = "2.2.0"
         const val legacy = "1.0.0"
@@ -22,6 +22,8 @@ object Libs {
         const val retrofit = "2.6.2"
         const val moshi = "1.9.1"
         const val coil = "0.9.5"
+        const val threeTen = "1.2.2"
+        const val calendar = "0.3.2"
     }
 
     const val kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
@@ -74,4 +76,7 @@ object Libs {
     const val retrofitMoshiConverter = "com.squareup.retrofit2:converter-moshi:${Versions.retrofit}"
 
     const val coil = "io.coil-kt:coil:${Versions.coil}"
+
+    const val threeTebAbp = "com.jakewharton.threetenabp:threetenabp:${Versions.threeTen}"
+    const val calendar = "com.github.kizitonwose:CalendarView:${Versions.calendar}"
 }

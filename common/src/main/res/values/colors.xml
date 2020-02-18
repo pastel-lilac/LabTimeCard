@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="common_nkmr_lab">#F7B52B</color>
+    <color name="common_nkmr_lab_second">#FFCC80</color>
     <color name="common_inmr_lab">#009FE8</color>
+    <color name="common_inmr_lab_second">#90CAF9</color>
+    <color name="common_online">#74c239</color>
+    <color name="common_offline">#a39e9e</color>
 </resources>

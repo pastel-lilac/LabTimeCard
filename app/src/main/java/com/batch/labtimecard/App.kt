@@ -7,6 +7,7 @@ import com.batch.labtimecard.di.Modules.repositoryModule
 import com.batch.labtimecard.di.Modules.useCaseModule
 import com.batch.labtimecard.di.Modules.viewModelModule
 import com.facebook.stetho.Stetho
+import com.jakewharton.threetenabp.AndroidThreeTen
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import timber.log.Timber
@@ -28,6 +29,7 @@ class App : Application() {
                 )
             )
         }
+        AndroidThreeTen.init(this)
         if (BuildConfig.DEBUG) {
             Stetho.initializeWithDefaults(this)
             Timber.plant(Timber.DebugTree())

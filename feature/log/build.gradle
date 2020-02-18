@@ -30,6 +30,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
 
 }
 
@@ -44,6 +47,7 @@ dependencies {
     androidTestImplementation Libs.espresso
 
     implementation project(":data")
+    implementation project(":common")
 
     // material
     implementation Libs.material
@@ -52,10 +56,15 @@ dependencies {
     implementation Libs.firebaseAnalytics
     implementation Libs.firebaseDatabase
 
-    // epoxy
-    implementation Libs.epoxy
-    kapt Libs.epoxyApt
-    implementation Libs.epoxyDatabinding
-
     implementation Libs.lifecycle
+    implementation Libs.lifecycleViewModel
+
+    implementation Libs.threeTebAbp
+    implementation Libs.calendar
+
+    implementation Libs.koinAndroid
+    implementation Libs.koinAndroidxScope
+    implementation Libs.koinViewModel
+
+    implementation Libs.timber
 }

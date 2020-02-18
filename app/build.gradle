@@ -68,6 +68,8 @@ dependencies {
     implementation Libs.retrofit
     implementation Libs.moshi
     implementation Libs.retrofitMoshiConverter
+
+    implementation Libs.threeTebAbp
 }
 
 apply plugin: 'com.google.gms.google-services'
