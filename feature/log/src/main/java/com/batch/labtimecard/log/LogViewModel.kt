@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.batch.labtimecard.data.TimeCardRepository
+import com.batch.labtimecard.data.model.LogTime
 import com.batch.labtimecard.data.model.LoginLog
 import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDate
@@ -18,6 +19,8 @@ class LogViewModel(
 
     private val _logs = MutableLiveData<List<LoginLog>>()
     val logs: LiveData<List<LoginLog>> = _logs
+
+    val events = mutableMapOf<LocalDate, LogTime>()
 
     var selectedDate: LocalDate? = null
 

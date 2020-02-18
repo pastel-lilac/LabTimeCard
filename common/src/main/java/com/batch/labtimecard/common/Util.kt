@@ -1,6 +1,7 @@
 package com.batch.labtimecard.common
 
 import android.content.Context
+import android.content.res.Resources
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.ColorRes
@@ -34,7 +35,14 @@ val Date.dateString: String
 
 
 val Date.timeString: String
-    get() = SimpleDateFormat("yyyy-MM-dd", Locale.JAPAN).format(this)
+    get() = SimpleDateFormat("HH:mm:ss", Locale.JAPAN).format(this)
+
+
+val Int.dp: Int
+    get() = (this * Resources.getSystem().displayMetrics.density + 0.5f).toInt()
+
+val Float.dp: Int
+    get() = (this * Resources.getSystem().displayMetrics.density + 0.5f).toInt()
 
 
 fun Context.getColorCompat(@ColorRes color: Int) = ContextCompat.getColor(this, color)

@@ -2,5 +2,5 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="oval">
 
-    <solid android:color="@color/common_nkmr_lab" />
+    <solid android:color="@color/common_inmr_lab_second" />
 </shape>

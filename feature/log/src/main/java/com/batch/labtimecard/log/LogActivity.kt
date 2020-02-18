@@ -11,8 +11,10 @@ import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.batch.labtimecard.common.dateString
+import com.batch.labtimecard.common.dp
 import com.batch.labtimecard.common.setTextColorRes
 import com.batch.labtimecard.log.databinding.ActivityLogBinding
+import com.kizitonwose.calendarview.CalendarView.Companion.DAY_SIZE_SQUARE
 import com.kizitonwose.calendarview.model.CalendarDay
 import com.kizitonwose.calendarview.model.CalendarMonth
 import com.kizitonwose.calendarview.model.DayOwner
@@ -23,13 +25,11 @@ import kotlinx.android.synthetic.main.item_calendar_day.view.*
 import kotlinx.android.synthetic.main.item_calendar_header.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.threeten.bp.*
+import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.temporal.WeekFields
-import java.text.SimpleDateFormat
 import java.util.*
 
 class LogActivity : AppCompatActivity() {
-
-    private val controller by lazy { LogListController() }
 
     private lateinit var binding: ActivityLogBinding
 
@@ -48,7 +48,11 @@ class LogActivity : AppCompatActivity() {
 
     private fun observeLogs() {
         viewModel.logs.observe(this, Observer {
-            controller.setData(it)
+            it.forEach {log ->
+                val key = LocalDate.parse(log.date, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+                val logTime = log.time ?: return@forEach
+                viewModel.events[key] = logTime
+            }
         })
     }
 
@@ -60,6 +64,8 @@ class LogActivity : AppCompatActivity() {
             currentMonth.plusMonths(10),
             daysOfWeek.first()
         )
+        binding.calendar.dayHeight = 120.dp
+        binding.calendar.dayWidth = 120.dp
         binding.calendar.scrollToMonth(currentMonth)
 
         selectDate(today)
@@ -95,14 +101,14 @@ class LogActivity : AppCompatActivity() {
                             dotView.isVisible = false
                         }
                         viewModel.selectedDate -> {
-                            textView.setTextColorRes(R.color.example_3_blue)
-                            textView.setBackgroundResource(R.drawable.example_3_selected_bg)
+                            textView.setTextColorRes(R.color.common_inmr_lab)
+                            textView.setBackgroundResource(R.drawable.shape_calendar_selected)
                             dotView.isVisible = false
                         }
                         else -> {
                             textView.setTextColorRes(android.R.color.black)
                             textView.background = null
-                            dotView.isVisible = events[day.date].orEmpty().isNotEmpty()
+                            dotView.isVisible = viewModel.events.contains(day.date)
                         }
                     }
                 } else {
@@ -113,9 +119,9 @@ class LogActivity : AppCompatActivity() {
         }
         binding.calendar.monthScrollListener = {
             binding.month.text = if (it.year == today.year) {
-                SimpleDateFormat("M月", Locale.JAPAN).format(it.yearMonth)
+                DateTimeFormatter.ofPattern("M月").format(it.yearMonth)
             } else {
-                SimpleDateFormat("yyyy年M月", Locale.JAPAN).format(it.yearMonth)
+                DateTimeFormatter.ofPattern("yyyy年M月").format(it.yearMonth)
             }
             val date = it.yearMonth.atDay(1).atStartOfDay(ZoneId.systemDefault())
                 .toInstant()
@@ -135,7 +141,7 @@ class LogActivity : AppCompatActivity() {
                     container.legendLayout.children.map { it as TextView }
                         .forEachIndexed { index, tv ->
                             tv.text = daysOfWeekFromLocale()[index].name.first().toString()
-                            tv.setTextColorRes(R.color.example_3_black)
+                            tv.setTextColorRes(android.R.color.black)
                         }
                 }
             }

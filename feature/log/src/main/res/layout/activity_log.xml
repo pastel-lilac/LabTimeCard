@@ -16,36 +16,46 @@
 
         <TextView
             android:id="@+id/month"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="16dp"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             android:textColor="@android:color/black"
             android:textSize="32sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="2047年4月" />
 
-
-        <com.kizitonwose.calendarview.CalendarView
-            android:id="@+id/calendar"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:cv_dayViewResource="@layout/item_calendar_day"
-            app:cv_monthHeaderResource="@layout/item_calendar_header"
-            app:cv_orientation="horizontal"
-            app:cv_scrollMode="paged"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/date"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/month" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.kizitonwose.calendarview.CalendarView
+                android:id="@+id/calendar"
+                android:layout_width="840dp"
+                android:layout_height="wrap_content"
+                app:cv_dayViewResource="@layout/item_calendar_day"
+                app:cv_monthHeaderResource="@layout/item_calendar_header"
+                app:cv_orientation="horizontal"
+                app:cv_scrollMode="paged"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:background="#EEEEEE"
             android:paddingStart="20dp"
             android:paddingTop="12dp"
@@ -54,9 +64,9 @@
             android:textAllCaps="true"
             android:textColor="@android:color/black"
             android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/work_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/calendar"
             tools:text="7 Jan, 2019" />
 
 
@@ -72,9 +82,9 @@
             android:layout_height="56dp"
             android:layout_margin="8dp"
             android:background="@color/common_nkmr_lab_second"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/off_background"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/date" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
             android:id="@+id/icon_work"
@@ -111,9 +121,9 @@
             android:layout_height="56dp"
             android:layout_margin="8dp"
             android:background="@color/common_inmr_lab_second"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/work_background"
-            app:layout_constraintTop_toBottomOf="@id/date" />
+            app:layout_constraintStart_toEndOf="@+id/work_background" />
 
         <ImageView
             android:id="@+id/icon_off"
