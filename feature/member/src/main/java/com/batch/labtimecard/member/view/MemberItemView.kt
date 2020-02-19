@@ -83,7 +83,7 @@ class MemberItemView @JvmOverloads constructor(
                     R.id.show_log -> {
                         val intent = LogActivity.createIntent(
                             context as Activity,
-                            memberData.key
+                            memberData
                         )
                         context.startActivity(intent)
                     }

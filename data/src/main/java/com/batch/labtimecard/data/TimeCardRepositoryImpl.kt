@@ -118,12 +118,14 @@ class TimeCardRepositoryImpl(
             val endDayOfMonth = Instant.ofEpochMilli(month.time)
                 .atZone(ZoneId.systemDefault())
                 .toLocalDate()
-                .plusDays(1)
+                .plusMonths(1)
+                .withDayOfMonth(1)
                 .atStartOfDay(ZoneId.systemDefault())
                 .toInstant()
                 .let { DateTimeUtils.toDate(it) }
             val dbRef = database.getReference(DatabaseKey.LOGS)
                 .child(memberKey)
+                .orderByKey()
                 .startAt(month.dateString)
                 .endAt(endDayOfMonth.dateString)
             val listener = object : ValueEventListener {

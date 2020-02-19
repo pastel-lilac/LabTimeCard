@@ -13,8 +13,8 @@ import androidx.lifecycle.Observer
 import com.batch.labtimecard.common.dateString
 import com.batch.labtimecard.common.dp
 import com.batch.labtimecard.common.setTextColorRes
+import com.batch.labtimecard.data.model.MemberData
 import com.batch.labtimecard.log.databinding.ActivityLogBinding
-import com.kizitonwose.calendarview.CalendarView.Companion.DAY_SIZE_SQUARE
 import com.kizitonwose.calendarview.model.CalendarDay
 import com.kizitonwose.calendarview.model.CalendarMonth
 import com.kizitonwose.calendarview.model.DayOwner
@@ -41,17 +41,21 @@ class LogActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_log)
         observeLogs()
-        val memberKey = intent.getStringExtra(MEMBER)
-        viewModel.memberKey = memberKey
+        val member = intent.getSerializableExtra(MEMBER) as? MemberData
+        viewModel.member = member
+        binding.viewModel = viewModel
         setUpCalendar()
     }
 
     private fun observeLogs() {
         viewModel.logs.observe(this, Observer {
-            it.forEach {log ->
+            it.forEach { log ->
                 val key = LocalDate.parse(log.date, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
                 val logTime = log.time ?: return@forEach
                 viewModel.events[key] = logTime
+            }
+            if (viewModel.selectedDate == null) {
+                selectDate(today)
             }
         })
     }
@@ -64,11 +68,10 @@ class LogActivity : AppCompatActivity() {
             currentMonth.plusMonths(10),
             daysOfWeek.first()
         )
-        binding.calendar.dayHeight = 120.dp
-        binding.calendar.dayWidth = 120.dp
-        binding.calendar.scrollToMonth(currentMonth)
+        binding.calendar.dayHeight = 96.dp
+        binding.calendar.dayWidth = 96.dp
 
-        selectDate(today)
+        //selectDate(today)
 
         class DayViewContainer(view: View) : ViewContainer(view) {
             lateinit var day: CalendarDay // Will be set when this container is bound.
@@ -127,7 +130,6 @@ class LogActivity : AppCompatActivity() {
                 .toInstant()
                 .let { d -> DateTimeUtils.toDate(d) }
             viewModel.fetchLogByMonth(date)
-            selectDate(it.yearMonth.atDay(1))
         }
         class MonthViewContainer(view: View) : ViewContainer(view) {
             val legendLayout = view.legendLayout
@@ -146,23 +148,33 @@ class LogActivity : AppCompatActivity() {
                 }
             }
         }
+        binding.calendar.scrollToMonth(currentMonth)
     }
 
     private fun selectDate(date: LocalDate) {
+        binding.date.text = date.format(DateTimeFormatter.ofPattern("M月d日"))
         if (viewModel.selectedDate != date) {
             val oldDate = viewModel.selectedDate
             viewModel.selectedDate = date
-            oldDate?.let { binding.calendar.notifyDateChanged(it) }
-            binding.calendar.notifyDateChanged(date)
+            binding.calendar.notifyCalendarChanged()
+            oldDate?.let { old ->
+                binding.calendar.notifyDateChanged(old)
+                binding.calendar.notifyDateChanged(date)
+            } ?: let {
+                binding.calendar.notifyCalendarChanged()
+            }
+
             val dateString = date.atStartOfDay(ZoneId.systemDefault())
                 .toInstant()
                 .let { DateTimeUtils.toDate(it) }
                 .dateString
             val log = viewModel.logs.value?.find { it.date == dateString }
             log?.let {
-                binding.date.text = it.date
-                binding.textWork.text = it.time?.loginTime
-                binding.textOff.text = it.time?.logoutTime
+                binding.textWork.text = it.time?.loginTime?.substringBeforeLast(":")
+                binding.textOff.text = it.time?.logoutTime?.substringBeforeLast(":")
+            } ?: let {
+                binding.textWork.text = ""
+                binding.textOff.text = ""
             }
         }
     }
@@ -182,7 +194,7 @@ class LogActivity : AppCompatActivity() {
     companion object {
         private const val MEMBER = "memberKey"
 
-        fun createIntent(activity: Activity, member: String?) =
+        fun createIntent(activity: Activity, member: MemberData?) =
             Intent(activity, LogActivity::class.java).apply {
                 putExtra(MEMBER, member)
             }

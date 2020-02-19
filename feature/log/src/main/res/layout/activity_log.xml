@@ -28,34 +28,59 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="2047年4月" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@id/date"
-            app:layout_constraintEnd_toEndOf="parent"
+        <com.kizitonwose.calendarview.CalendarView
+            android:id="@+id/calendar"
+            android:layout_width="672dp"
+            android:layout_height="wrap_content"
+            app:cv_dayViewResource="@layout/item_calendar_day"
+            app:cv_monthHeaderResource="@layout/item_calendar_header"
+            app:cv_orientation="horizontal"
+            app:cv_scrollMode="paged"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/date"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/month" />
 
-            <com.kizitonwose.calendarview.CalendarView
-                android:id="@+id/calendar"
-                android:layout_width="840dp"
-                android:layout_height="wrap_content"
-                app:cv_dayViewResource="@layout/item_calendar_day"
-                app:cv_monthHeaderResource="@layout/item_calendar_header"
-                app:cv_orientation="horizontal"
-                app:cv_scrollMode="paged"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/member_icon"
+            android:layout_width="480dp"
+            android:layout_height="480dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/date"
+            app:layout_constraintTop_toTopOf="parent"
+            app:setImage="@{viewModel.member.member.iconUrl}"
+            tools:src="@color/common_inmr_lab_second" />
+
+        <View
+            android:id="@+id/gradient_background"
+            android:layout_width="0dp"
+            android:layout_height="240dp"
+            android:background="@drawable/log_gradient_background"
+            app:layout_constraintBottom_toBottomOf="@id/member_icon"
+            app:layout_constraintEnd_toEndOf="@id/member_icon"
+            app:layout_constraintStart_toStartOf="@id/member_icon" />
+
+        <TextView
+            android:id="@+id/member_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="@{viewModel.member.member.name}"
+            android:textColor="@android:color/white"
+            android:textSize="40sp"
+            app:layout_constraintBottom_toBottomOf="@id/gradient_background"
+            app:layout_constraintEnd_toEndOf="@id/gradient_background"
+            app:layout_constraintStart_toStartOf="@id/gradient_background"
+            tools:text="batch" />
 
         <TextView
             android:id="@+id/date"
-            android:layout_width="0dp"
+            android:layout_width="480dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
             android:background="#EEEEEE"
             android:paddingStart="20dp"
             android:paddingTop="12dp"
@@ -64,9 +89,9 @@
             android:textAllCaps="true"
             android:textColor="@android:color/black"
             android:textSize="24sp"
-            app:layout_constraintBottom_toTopOf="@+id/work_background"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/member_icon"
+            app:layout_constraintTop_toBottomOf="@id/member_icon"
+            tools:layout_editor_absoluteX="800dp"
             tools:text="7 Jan, 2019" />
 
 
@@ -80,11 +105,11 @@
             android:id="@+id/work_background"
             android:layout_width="0dp"
             android:layout_height="56dp"
-            android:layout_margin="8dp"
+            android:layout_marginTop="8dp"
             android:background="@color/common_nkmr_lab_second"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/off_background"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="@id/date"
+            app:layout_constraintTop_toBottomOf="@+id/date" />
 
         <ImageView
             android:id="@+id/icon_work"
@@ -105,7 +130,7 @@
             android:textSize="32sp"
             app:layout_constraintBottom_toBottomOf="@+id/icon_work"
             app:layout_constraintEnd_toEndOf="@id/work_background"
-            app:layout_constraintStart_toStartOf="@id/work_background"
+            app:layout_constraintStart_toStartOf="@id/icon_work"
             app:layout_constraintTop_toTopOf="@id/icon_work"
             tools:text="14:00" />
 
@@ -119,11 +144,12 @@
             android:id="@+id/off_background"
             android:layout_width="0dp"
             android:layout_height="56dp"
-            android:layout_margin="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:background="@color/common_inmr_lab_second"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/work_background" />
+            app:layout_constraintEnd_toEndOf="@id/date"
+            app:layout_constraintStart_toEndOf="@+id/work_background"
+            app:layout_constraintTop_toBottomOf="@+id/date" />
 
         <ImageView
             android:id="@+id/icon_off"
@@ -144,7 +170,7 @@
             android:textSize="32sp"
             app:layout_constraintBottom_toBottomOf="@+id/icon_off"
             app:layout_constraintEnd_toEndOf="@id/off_background"
-            app:layout_constraintStart_toStartOf="@id/off_background"
+            app:layout_constraintStart_toStartOf="@id/icon_off"
             app:layout_constraintTop_toTopOf="@id/icon_off"
             tools:text="18:00" />
 
