@@ -152,7 +152,11 @@ class LogActivity : AppCompatActivity() {
     }
 
     private fun selectDate(date: LocalDate) {
-        binding.date.text = date.format(DateTimeFormatter.ofPattern("M月d日"))
+        binding.date.text = if (date.year != today.year) {
+            date.format(DateTimeFormatter.ofPattern("yyyy年M月d日"))
+        } else {
+            date.format(DateTimeFormatter.ofPattern("M月d日"))
+        }
         if (viewModel.selectedDate != date) {
             val oldDate = viewModel.selectedDate
             viewModel.selectedDate = date
