@@ -4,6 +4,7 @@ import com.batch.labtimecard.common.navigator.Navigator
 import com.batch.labtimecard.data.TimeCardRepository
 import com.batch.labtimecard.data.TimeCardRepositoryImpl
 import com.batch.labtimecard.data.api.BASE_URL
+import com.batch.labtimecard.log.LogViewModel
 import com.batch.labtimecard.member.MemberListViewModel
 import com.batch.labtimecard.member.usecase.LoginUseCase
 import com.batch.labtimecard.member.usecase.LoginUseCaseImpl
@@ -64,6 +65,7 @@ object Modules {
 
     val viewModelModule = module {
         viewModel { MemberListViewModel(get(), get(), get()) }
+        viewModel { LogViewModel(get()) }
     }
 
 }
