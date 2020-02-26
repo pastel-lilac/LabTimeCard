@@ -6,6 +6,8 @@ object Libs {
         const val appcompat = "1.1.0"
         const val firebaseAnalyticsVersion = "17.2.2"
         const val firebaseDatabaseVersion = "19.2.0"
+        const val fireabaseAuthenticationVersion = "19.2.0"
+        const val firebaseUiAuth = "6.2.0"
         const val epoxy = "3.8.0"
         const val constraintLayout = "2.0.0-beta4"
         const val material = "1.0.0"
@@ -39,6 +41,9 @@ object Libs {
         "com.google.firebase:firebase-analytics:${Versions.firebaseAnalyticsVersion}"
     const val firebaseDatabase =
         "com.google.firebase:firebase-database:${Versions.firebaseDatabaseVersion}"
+    const val firebaseAuthentication =
+        "com.google.firebase:firebase-auth:${Versions.fireabaseAuthenticationVersion}"
+    const val firebaseUiAuth = "com.firebaseui:firebase-ui-auth:${Versions.firebaseUiAuth}"
 
 
     const val epoxy = "com.airbnb.android:epoxy:${Versions.epoxy}"
