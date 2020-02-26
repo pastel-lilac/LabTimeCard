@@ -2,8 +2,8 @@ package com.batch.labtimecard.login
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.batch.labtimecard.common.navigator.Navigator
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
@@ -21,6 +21,7 @@ class LoginActivity : AppCompatActivity() {
 
         FirebaseAuth.getInstance().currentUser?.let {
             navigator.run { navigateToMember() }
+            finish()
             return
         }
 
@@ -34,6 +35,7 @@ class LoginActivity : AppCompatActivity() {
             if (resultCode == Activity.RESULT_OK) {
                 Timber.d(FirebaseAuth.getInstance().currentUser?.uid)
                 navigator.run { navigateToMember() }
+                finish()
             } else {
                 loginWithGoogle()
                 Timber.e(response?.error)
