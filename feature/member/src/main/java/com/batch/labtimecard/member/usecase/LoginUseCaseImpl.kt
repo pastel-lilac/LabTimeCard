@@ -15,7 +15,7 @@ class LoginUseCaseImpl(
             message = "${memberData.member?.name}さんが入室しました"
             timeCardRepository.login(key)
             timeCardRepository.updateLog(key, true)
-        }else {
+        } else {
             message = "${memberData.member?.name}さんが退室しました"
             timeCardRepository.logout(key)
             timeCardRepository.updateLog(key, false)
