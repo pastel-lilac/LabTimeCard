@@ -1,34 +1,28 @@
-apply plugin: 'com.android.application'
-
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
-
-apply plugin: 'kotlin-kapt'
-
-
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
+
+
     defaultConfig {
-        applicationId "com.batch.labtimecard"
         minSdkVersion 23
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    dataBinding.enabled = true
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
+
 }
 
 dependencies {
@@ -42,36 +36,10 @@ dependencies {
     androidTestImplementation Libs.androidJunit
     androidTestImplementation Libs.espresso
 
-    implementation project(":common")
-    implementation project(":data")
-    implementation project(":feature:log")
     implementation project(":feature:member")
-    implementation project(":feature:login")
+    implementation project(":common")
 
-    // material
-    implementation Libs.material
-
-    // firebase
-    implementation Libs.firebaseAnalytics
-    implementation Libs.firebaseDatabase
     implementation Libs.firebaseUiAuth
-
-
-    implementation Libs.lifecycle
-
     implementation Libs.koinAndroid
-    implementation Libs.koinAndroidxScope
-    implementation Libs.koinViewModel
-
     implementation Libs.timber
-
-    implementation Libs.okHttp
-    implementation Libs.stetho
-    implementation Libs.retrofit
-    implementation Libs.moshi
-    implementation Libs.retrofitMoshiConverter
-
-    implementation Libs.threeTebAbp
 }
-
-apply plugin: 'com.google.gms.google-services'
