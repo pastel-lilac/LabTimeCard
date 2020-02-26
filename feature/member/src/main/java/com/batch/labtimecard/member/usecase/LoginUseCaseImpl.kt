@@ -10,13 +10,17 @@ class LoginUseCaseImpl(
         val isActive =
             memberData.member?.active ?: throw IllegalArgumentException("isActive must not be null")
         val key = memberData.key ?: throw IllegalArgumentException("memberKey must not be null")
+        val message: String
         if (!isActive) {
+            message = "${memberData.member?.name}さんが入室しました"
             timeCardRepository.login(key)
             timeCardRepository.updateLog(key, true)
-            return true
+        } else {
+            message = "${memberData.member?.name}さんが退室しました"
+            timeCardRepository.logout(key)
+            timeCardRepository.updateLog(key, false)
         }
-        timeCardRepository.logout(key)
-        timeCardRepository.updateLog(key, false)
-        return false
+        timeCardRepository.postSlackMessage(message)
+        return !isActive
     }
 }
