@@ -18,4 +18,5 @@ interface TimeCardRepository {
     suspend fun getGroupMembers(groupId: String): GroupMembers
     suspend fun getMemberProfile(slackId: String): MemberProfile
     suspend fun removeMembers()
+    suspend fun postSlackMessage(message: String)
 }

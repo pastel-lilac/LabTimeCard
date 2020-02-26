@@ -3,6 +3,7 @@ package com.batch.labtimecard.data.api
 import com.batch.labtimecard.data.model.GroupMembers
 import com.batch.labtimecard.data.model.MemberProfile
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Query
 
 interface SlackClient {
@@ -17,4 +18,11 @@ interface SlackClient {
         @Query("token") token: String,
         @Query("user") userId: String
     ): MemberProfile
+
+    @POST(POST_MESSAGE)
+    suspend fun postSlackMessage(
+        @Query("token") token: String,
+        @Query("channel") channel: String,
+        @Query("text") text: String
+    )
 }

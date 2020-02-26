@@ -185,4 +185,8 @@ class TimeCardRepositoryImpl(
     override suspend fun removeMembers() {
         database.getReference(DatabaseKey.MEMBER).removeValue()
     }
+
+    override suspend fun postSlackMessage(message: String) {
+        client.postSlackMessage(SLACK_TOKEN, "CJ5BC6ZTR", message)
+    }
 }
