@@ -1,4 +1,7 @@
-# <img src ="arts/header.png" width="100%"> 
+<img src ="arts/header.png" width="100%"> 
+
+# LabTimeCard
+
 LabTimeCard is management attendance app for lab members.  
 
 # Features
