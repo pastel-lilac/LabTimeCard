@@ -1,4 +1,4 @@
-# LabTimeCard
+# <img src ="arts/Inamlogo.png" width="70"> LabTimeCard <img src ="arts/Nakamlogo.png" width="70">
 LabTimeCard is management attendance app for lab members.  
 
 # Features
