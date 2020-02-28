@@ -1,4 +1,4 @@
-# <img src="https://github.com/pastel-lilac/LabTimeCard/blob/master/app/src/main/res/drawable/nakam_logo.png" width="80"> Lab Time Card <img src="https://github.com/pastel-lilac/LabTimeCard/blob/master/app/src/main/res/drawable/inam_logo.png" width="80">
+# LabTimeCard
 LabTimeCard is management attendance app for lab members.  
 
 # Features
@@ -6,7 +6,7 @@ LabTimeCard is management attendance app for lab members.
 | :---: |
 | <img src ="arts/home.png" width="700"> |
 | log |
-| <img src ="arts/log.png" width="700"> |
+| <img src ="arts/calendar.png" width="700"> |
 
 # Credit
 This project uses some modern Android libraries source codes.
