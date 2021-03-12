@@ -11,6 +11,15 @@ LabTimeCard is management attendance app for lab members.
 | log |
 | <img src ="arts/calendar.png" width="700"> |
 
+## 運用
+アプリがうまく動かなくなったときは、Slackとの連携がうまくいってない可能性が高いと思われます。
+Slackとの通信の処理は `data/src/java/com/batch/labtimecard/data`あたりにソースファイルがあります。
+エンドポイントなどは、apiディレクトリの中のKotlinファイルにソースコードがあります。
+
+不明な点があれば、下記に問い合わせください  
+batch: Twitter@b4tchkn  
+thorn: Twitter@gericass
+
 # Credit
 This project uses some modern Android libraries source codes.
 
